@@ -27,23 +27,23 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.55}
 a{color:var(--accent)}
-h1,h2,h3{font-family:"Bricolage Grotesque","Source Sans 3",system-ui,sans-serif;text-wrap:balance;line-height:1.1;margin:0;font-weight:700}
+h1,h2,h3{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.015em;text-wrap:balance;line-height:1.1;margin:0;font-weight:700}
 h1{font-size:clamp(2.2rem,5.5vw,3.6rem);letter-spacing:-.01em}
 h2{font-size:clamp(1.5rem,3.2vw,2.1rem)}
 h3{font-size:1.15rem;font-weight:700}
 p{margin:0}
 .wrap{max-width:1040px;margin:0 auto;padding-inline:20px}
 .nav{display:flex;align-items:center;justify-content:space-between;padding-block:18px;gap:16px;flex-wrap:wrap}
-.brand{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.25rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand{font-family:inherit;font-weight:700;font-size:1.25rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand img{height:28px;width:28px;display:block}
+.hero-logo{height:56px;width:56px;margin-bottom:18px;display:block}
 .brand small{font-weight:500;color:var(--ink-3);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;padding-top:3px}
-.brand img{height:28px;width:auto;display:block}
 .nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
 .nav ul a{color:var(--ink-2);text-decoration:none;font-weight:600;font-size:.95rem}
 .nav ul a:hover,.nav ul a:focus-visible{color:var(--accent)}
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:56px 64px}
-.hero-logo{height:56px;width:auto;margin-bottom:18px}
 .hero .lede{font-size:1.25rem;color:var(--ink-2);margin-top:18px;max-width:34ch}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;align-items:center}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:6px;font-weight:600;text-decoration:none;font-size:1rem;border:1.5px solid transparent}
@@ -73,7 +73,7 @@ section{padding-block:56px;border-top:1px solid var(--rule)}
 .tile p{color:var(--ink-2);margin-top:8px}
 .steps{counter-reset:step;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
 .step{position:relative;padding-top:44px}
-.step::before{counter-increment:step;content:counter(step);position:absolute;top:0;left:0;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font-family:"Bricolage Grotesque",sans-serif;font-weight:700;display:grid;place-items:center;font-size:.95rem}
+.step::before{counter-increment:step;content:counter(step);position:absolute;top:0;left:0;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font-family:inherit;font-weight:700;display:grid;place-items:center;font-size:.95rem}
 .step p{color:var(--ink-2);margin-top:8px}
 .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:32px}
 .feat h3{display:flex;gap:10px;align-items:baseline}
@@ -106,7 +106,7 @@ footer .paused{margin-top:16px;max-width:62ch}
 
 <header class="wrap">
   <nav class="nav" aria-label="Main">
-    <a class="brand" href="/"><img src="logo.svg" alt="" width="28" height="28" decoding="async">CViper <small>Light</small></a>
+    <a class="brand" href="/"><img src="logo.svg" alt="" width="28" height="28" decoding="async"> CViper <small>Light</small></a>
     <ul>
       <li><a href="#how">How it works</a></li>
       <li><a href="#what">What it does</a></li>
@@ -123,7 +123,14 @@ footer .paused{margin-top:16px;max-width:62ch}
         <img src="logo.svg" alt="" class="hero-logo" width="56" height="56" decoding="async">
         <h1>Make every application count.</h1>
         <p class="lede">CViper Light tailors your CV to each job — on your own computer, with nothing to sign up for.</p>
-        <p class="cta-note"><strong>Free.</strong> Windows 10 and 11. No account needed. Your CV never leaves your machine.</p>
+        <div class="cta">
+          <!-- TODO (release): swap to Microsoft Store URL + GitHub Releases /latest link once the first signed build ships -->
+          <a class="btn primary" href="https://github.com/stevenbrady1/cviper-light" aria-label="Follow CViper Light on GitHub to hear when the Windows release is out">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            Follow on GitHub
+          </a>
+        </div>
+        <p class="cta-note"><strong>Windows release coming soon.</strong> Free, no account, and your CV never leaves your machine. Star or watch the repo and GitHub will tell you the moment the first build is out.</p>
       </div>
       <div class="demo" aria-label="Illustration: a CV with the lines that match the job highlighted">
         <div class="bar"><span>Your CV · tailored for “Product Analyst, London”</span><span class="score">Match 87%</span></div>
@@ -161,7 +168,7 @@ footer .paused{margin-top:16px;max-width:62ch}
       <div class="eyebrow">How it works</div>
       <h2>Three steps to your first tailored CV.</h2>
       <div class="steps">
-        <div class="step"><h3>Install CViper Light</h3><p>From the Microsoft Store or the installer above. It opens straight into a short welcome.</p></div>
+        <div class="step"><h3>Install CViper Light</h3><p>From the Microsoft Store once it's live. It opens straight into a short welcome.</p></div>
         <div class="step"><h3>Paste your OpenAI key</h3><p>The welcome screen links to where you get one and shows what a typical CV costs. One paste, done.</p></div>
         <div class="step"><h3>Drop in your CV and a job</h3><p>Paste the job advert or its link. You get a match score, a tailored CV and a cover letter you can edit and save.</p></div>
       </div>
@@ -190,7 +197,7 @@ footer .paused{margin-top:16px;max-width:62ch}
         <details><summary>Is it really free?</summary><p>Yes. The app is free and there is no paid tier. The only cost is what OpenAI charges for the AI calls you make with your own key — typically a few pence for a tailored CV.</p></details>
         <details><summary>Where do I get an OpenAI key, and what does it cost?</summary><p>From your OpenAI account under "API keys". You add a small amount of credit and pay only for what you use. The app's welcome screen links straight there and shows a cost estimate before each run.</p></details>
         <details><summary>Is my CV safe?</summary><p>It stays on your computer. When you ask for a tailored version, the text goes from your PC directly to OpenAI using your key, under OpenAI's API terms — not through us. We never see it.</p></details>
-        <details><summary>Windows only?</summary><p>Yes, for now. A macOS build exists but is not publicly signed, so we do not offer it. If enough people ask, that changes.</p></details>
+        <details><summary>When can I download it?</summary><p>The first public Windows build is being prepared for the Microsoft Store now. Watch the <a href="https://github.com/stevenbrady1/cviper-light">GitHub repo</a> to be notified. macOS is not offered for now.</p></details>
         <details><summary>Does it make things up?</summary><p>It is designed not to. It rewrites what is in your CV to match the role; it does not add skills or jobs you did not give it. Always read the result before you send it.</p></details>
         <details><summary>Who built this?</summary><p>One person — a product manager with years in London banking and finance hiring — as a side project. It is maintained in spare time; questions and bugs go through <a href="https://github.com/stevenbrady1/cviper-light/issues">GitHub Issues</a>.</p></details>
       </div>
@@ -205,7 +212,7 @@ footer .paused{margin-top:16px;max-width:62ch}
   <div class="wrap">
     <div class="row">
       <span>© 2026 CViper · Made in the UK</span>
-      <span><a href="https://github.com/stevenbrady1/cviper-light">GitHub</a> · <a href="https://github.com/stevenbrady1/cviper-light/issues">Report a problem</a> · <a href="https://github.com/stevenbrady1/cviper-light/releases">All releases</a></span>
+      <span><a href="https://github.com/stevenbrady1/cviper-light">GitHub</a> · <a href="https://github.com/stevenbrady1/cviper-light/issues">Report a problem</a> · <a href="https://github.com/stevenbrady1/cviper-light/releases">Releases</a></span>
     </div>
     <p class="paused">Looking for the online version of CViper? It's paused while we focus on the desktop app. Star the GitHub repo to hear if it returns.</p>
   </div>
