@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CViper — CV and job-ad matching</title>
+<meta name="description" content="CViper compared a CV against a job description, scored the match, and named the requirements that were missing. The hosted service is currently paused.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="CViper">
+<meta property="og:description" content="Match a CV to a job ad and see exactly where the gap is. The hosted service is currently paused.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cviper.uk/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F2044'/%3E%3Cpath d='M11 10h3.2l2.3 8.1L19 10h3.1l-3.9 12h-3.4z' fill='%231ED7D1'/%3E%3C/svg%3E">
+<script>
+/* cviper.ai and www.cviper.ai resolve here too. Send them to the canonical host.
+   Cloudflare does this properly with a 301 before the request ever arrives;
+   this is only a fallback for anything that bypasses that rule. */
+(function () {
+  var h = location.hostname.toLowerCase();
+  if (h === 'cviper.ai' || h.endsWith('.cviper.ai')) {
+    location.replace('https://cviper.uk' + location.pathname + location.search + location.hash);
+  }
+})();
+</script>
+<style>
+:root{
+  --ground:#F7F8FA; --panel:#FFFFFF; --ink:#0F2044; --ink-soft:#4B5563;
+  --rule:#E3E7EE; --link:#1A56DB; --match:#065F46; --gap:#92400E;
+  --gap-mark:#C27803; --accent:#0E9F6E;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ground:#0B1526; --panel:#101F36; --ink:#E8ECF3; --ink-soft:#9BA9BF;
+    --rule:#1E3050; --link:#7FA8FF; --match:#34D3A0; --gap:#E8B45C;
+    --gap-mark:#C27803; --accent:#1ED7D1;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; text-size-adjust:100%}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:ui-sans-serif,system-ui,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+.mono{
+  font-family:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:600;
+}
+.wrap{max-width:720px; margin:0 auto; padding:0 24px}
+
+/* ---- top bar ---- */
+.bar{border-bottom:1px solid var(--rule)}
+.bar .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; height:64px}
+.brand{display:flex; align-items:baseline; gap:1px; font-weight:640; font-size:19px; letter-spacing:-.02em}
+.brand i{font-style:normal; color:var(--accent)}
+.status{display:inline-flex; align-items:center; gap:7px; color:var(--gap)}
+.status::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--gap-mark); flex:none}
+
+/* ---- hero ----
+   Longhand only: `padding` shorthand here would reset .wrap's horizontal
+   padding and pin the text to the viewport edge on mobile. */
+.hero{padding-top:72px; padding-bottom:8px}
+.eyebrow{color:var(--ink-soft); margin:0 0 20px}
+h1{
+  margin:0 0 20px; font-size:clamp(2.05rem,6.2vw,3.4rem); line-height:1.04;
+  letter-spacing:-.033em; font-weight:640; max-width:15ch;
+}
+.lede{margin:0; color:var(--ink-soft); font-size:clamp(1rem,2.4vw,1.15rem); max-width:56ch}
+
+/* ---- signature: the alignment strip ---- */
+.strip{
+  margin:44px 0 0; background:var(--panel); border:1px solid var(--rule);
+  border-radius:12px; padding:22px 24px 20px; overflow-x:auto;
+}
+.strip-head{
+  display:grid; grid-template-columns:1fr 28px 1fr; gap:12px; color:var(--ink-soft);
+  padding-bottom:12px; border-bottom:1px solid var(--rule);
+}
+.strip-head span:nth-child(2){text-align:center}
+.row{
+  display:grid; grid-template-columns:1fr 28px 1fr; gap:12px; align-items:center;
+  padding:11px 0; border-bottom:1px solid var(--rule);
+  font-family:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
+  font-size:13.5px; letter-spacing:-.01em; white-space:nowrap;
+}
+.row:last-child{border-bottom:0; padding-bottom:2px}
+.arrow{text-align:center; color:var(--rule); font-size:15px}
+.hit{color:var(--match)}
+.miss{color:var(--gap)}
+.evidence{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.mark{flex:none; font-size:10.5px; letter-spacing:.1em; font-weight:700}
+.strip-foot{margin:16px 0 0; color:var(--ink-soft); font-size:13.5px; line-height:1.5}
+
+/* ---- paused notice ---- */
+.notice{
+  margin:52px 0 0; padding:18px 20px; background:var(--panel);
+  border:1px solid var(--rule); border-left:3px solid var(--gap-mark);
+  border-radius:0 10px 10px 0;
+}
+.notice h2{margin:0 0 8px; font-size:15px; font-weight:640; letter-spacing:-.01em}
+.notice p{margin:0; color:var(--ink-soft); font-size:15px}
+
+/* ---- what it did ---- */
+/* margin-top only: the `margin` shorthand would reset .wrap's `0 auto` and
+   knock this whole section out of the centred column. */
+.did{margin-top:52px; border-top:1px solid var(--rule); padding-top:28px}
+.did h2{margin:0 0 18px; color:var(--ink-soft)}
+.did dl{margin:0; display:grid; gap:18px}
+.did dt{font-weight:620; letter-spacing:-.01em}
+.did dd{margin:3px 0 0; color:var(--ink-soft); font-size:15.5px}
+
+/* ---- footer ---- */
+footer{margin:64px 0 0; border-top:1px solid var(--rule)}
+footer .wrap{
+  display:flex; flex-wrap:wrap; gap:8px 20px; justify-content:space-between;
+  padding-top:22px; padding-bottom:56px; color:var(--ink-soft);
+}
+a{color:var(--link)}
+:focus-visible{outline:2px solid var(--link); outline-offset:3px; border-radius:3px}
+
+/* ---- one deliberate reveal ---- */
+@media (prefers-reduced-motion: no-preference){
+  .row{animation:rise .5s cubic-bezier(.2,.7,.3,1) both}
+  .row:nth-child(2){animation-delay:.10s}
+  .row:nth-child(3){animation-delay:.18s}
+  .row:nth-child(4){animation-delay:.26s}
+  .row:nth-child(5){animation-delay:.34s}
+  @keyframes rise{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+}
+@media (max-width:560px){
+  .hero{padding-top:52px}
+  .strip{padding:18px 16px 16px}
+  .row,.strip-head{grid-template-columns:1fr 20px 1fr; gap:8px; font-size:12.5px}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="brand">C<i>V</i>iper</span>
+    <span class="status mono">Service paused</span>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <p class="eyebrow mono">CV and job-ad matching</p>
+    <h1>See exactly where a CV falls short of the job ad.</h1>
+    <p class="lede">CViper read a CV and a job description side by side, scored how well they matched, and named the specific requirements that had no evidence behind them.</p>
+
+    <div class="strip" role="img" aria-label="Worked example. The job asked for Python with five years, FastAPI, PostgreSQL, Kubernetes, and leading a team. The CV evidenced Python with seven years, FastAPI, PostgreSQL, and leading four engineers. It had no evidence for Kubernetes, which is flagged as the gap.">
+      <div class="strip-head mono" aria-hidden="true">
+        <span>The job asked for</span><span></span><span>The CV evidenced</span>
+      </div>
+      <div aria-hidden="true">
+        <div class="row"><span>Python, 5 years</span><span class="arrow">&rarr;</span><span class="evidence hit">Python, 7 years <span class="mark">MATCH</span></span></div>
+        <div class="row"><span>FastAPI</span><span class="arrow">&rarr;</span><span class="evidence hit">FastAPI <span class="mark">MATCH</span></span></div>
+        <div class="row"><span>PostgreSQL</span><span class="arrow">&rarr;</span><span class="evidence hit">PostgreSQL <span class="mark">MATCH</span></span></div>
+        <div class="row"><span>Kubernetes</span><span class="arrow">&rarr;</span><span class="evidence miss">no evidence <span class="mark">GAP</span></span></div>
+        <div class="row"><span>Leading a team</span><span class="arrow">&rarr;</span><span class="evidence hit">Led 4 engineers <span class="mark">MATCH</span></span></div>
+      </div>
+      <p class="strip-foot">One gap, named. Not a score out of ten with nothing behind it — the line in the job ad that nothing in the CV answers.</p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="notice">
+      <h2>The hosted app is switched off</h2>
+      <p>It ran on Azure, and I have paused it while I focus on other work. The application and its infrastructure definitions are intact, so it can be brought back. Nothing was lost.</p>
+    </div>
+  </section>
+
+  <section class="wrap did">
+    <h2 class="mono">What it did</h2>
+    <dl>
+      <div>
+        <dt>Read the CV as a document, not as keywords</dt>
+        <dd>Pulled roles, dates and evidence out of PDF and Word files, so "led four engineers" counted as leadership experience rather than being missed for lacking the word.</dd>
+      </div>
+      <div>
+        <dt>Scored the match against a real job ad</dt>
+        <dd>Paste a job description or a link to one, and get a requirement-by-requirement breakdown instead of a single opaque number.</dd>
+      </div>
+      <div>
+        <dt>Drafted the tailored version</dt>
+        <dd>Rewrote the CV and cover letter against that specific ad, keeping the wording truthful to what the original actually said.</dd>
+      </div>
+    </dl>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">CViper</span>
+    <!-- Want a contact link? Replace this comment with, for example:
+         <a href="mailto:you@example.com">Get in touch</a> -->
+    <span class="mono">Built in the UK</span>
+  </div>
+</footer>
+
+</body>
+</html>
