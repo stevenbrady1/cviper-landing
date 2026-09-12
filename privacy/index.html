@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Privacy — CViper Light</title>
+<meta name="description" content="What CViper Light stores, where it stores it, and every address it can contact. No server, no account, nothing collected.">
+<link rel="canonical" href="https://cviper.ai/privacy/">
+<meta property="og:title" content="Privacy — CViper Light">
+<meta property="og:description" content="What CViper Light stores, where it stores it, and every address it can contact.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cviper.ai/privacy/">
+
+<!--
+  ===========================================================================
+  WHERE THIS PAGE CAME FROM — AND WHEN IT MUST BE REFRESHED
+  ===========================================================================
+  This is NOT an original document. Every factual statement below is a
+  transcription of the privacy policy the CViper Light app GENERATES from its
+  own source of truth:
+
+      stevenbrady1/cviper-light
+        apps/light/src/lib/outbound-hosts.ts          <- the host registry
+        apps/light/src/features/settings/privacy/dataLocations.ts
+        apps/light/src/features/settings/privacy/policyDocument.ts  <- renders it
+        docs/app-store/privacy-policy.md              <- the committed snapshot
+
+  The app renders the same registry into Settings -> Privacy, and
+  `outbound-hosts.contract.test.ts` fails the app's build if shipped code names
+  a host that is not in the registry. `policyDocument.test.ts` keeps
+  docs/app-store/privacy-policy.md byte-identical to the render. So the list of
+  addresses below is the exact set the app is allowed to contact - not a
+  summary, and not somebody's recollection.
+
+  >>> REFRESH TRIGGER <<<
+  When a host or a storage location changes in that repo, this page is STALE
+  and must be updated to match the regenerated
+  docs/app-store/privacy-policy.md. This page cannot detect that on its own -
+  the two repositories have no link between them. Treat any change to
+  outbound-hosts.ts or dataLocations.ts as a change to this file.
+
+  Two sections are NOT from the generated policy and are marked in the source
+  below, because the generated document does not cover them:
+    * "Taking your data with you" - from the app repo's README.md
+      ("Your data, and getting it out"), which documents the export/import.
+    * "This website" - about cviper.ai itself, which the app's policy has no
+      reason to describe.
+
+  Content sourced against CViper Light 0.1.0
+  (APP_VERSION in apps/light/src/features/settings/backup.ts).
+
+  ===========================================================================
+  NO EXTERNAL REQUESTS. EVER.
+  ===========================================================================
+  This site makes zero third-party requests, deliberately: a privacy page that
+  loaded a font from Google would be contradicting itself in its own <head>.
+  No CDN, no web font, no analytics, no embedded anything. All CSS is inline
+  and every asset referenced here is served from this domain.
+-->
+
+<style>
+:root{
+  --bg:#FBFBF8; --surface:#FFFFFF; --ink:#18212B; --ink-2:#4B5563; --ink-3:#6E7781;
+  --rule:#E1E4DE; --accent:#2B4C9B; --accent-hover:#213C7C; --accent-soft:#E8EDF8; --accent-ink:#1E3A78;
+  --ok:#2F7A4E;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#131719; --surface:#1B2125; --ink:#E8EBE6; --ink-2:#B5BDB8; --ink-3:#8B948F;
+    --rule:#2C3438; --accent:#7EA0EA; --accent-hover:#9BB5F0; --accent-soft:#1E2A44; --accent-ink:#B7CBF5;
+    --ok:#6FC28F;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.55}
+a{color:var(--accent);overflow-wrap:anywhere}
+h1,h2,h3{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.015em;text-wrap:balance;line-height:1.15;margin:0;font-weight:700}
+h1{font-size:clamp(2rem,5vw,3rem);letter-spacing:-.01em}
+h2{font-size:clamp(1.35rem,3vw,1.75rem)}
+h3{font-size:1.05rem;font-weight:700}
+p{margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:20px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding-block:18px;gap:16px;flex-wrap:wrap}
+.brand{font-family:inherit;font-weight:700;font-size:1.25rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand img{height:28px;width:28px;display:block}
+.brand small{font-weight:500;color:var(--ink-3);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;padding-top:3px}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+.nav ul a{color:var(--ink-2);text-decoration:none;font-weight:600;font-size:.95rem}
+.nav ul a:hover,.nav ul a:focus-visible{color:var(--accent)}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px}
+/* The document column. Longhand padding only — the `padding` shorthand here
+   resets the .wrap gutters and pins text to the viewport edge on mobile. */
+.doc{max-width:70ch;padding-top:24px;padding-bottom:16px}
+.doc > p{color:var(--ink-2);margin-top:14px}
+.doc h2{margin-top:44px;padding-top:20px;border-top:1px solid var(--rule)}
+.doc h3{margin-top:28px;color:var(--ink)}
+.doc h3 + p{margin-top:8px}
+.doc ul{margin-top:14px;margin-bottom:0;padding-left:22px;color:var(--ink-2)}
+.doc li{margin-top:10px}
+.doc li strong{color:var(--ink)}
+.lede{font-size:1.15rem;color:var(--ink-2);margin-top:16px}
+.meta{font-size:.9rem;color:var(--ink-3);margin-top:14px}
+.callout{background:var(--accent-soft);border-radius:10px;padding-block:24px;padding-inline:24px;margin-top:28px}
+.callout p{color:var(--accent-ink);max-width:64ch}
+.callout p + p{margin-top:12px}
+.host{font-family:ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Consolas,monospace;font-size:.92em;background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding-block:1px;padding-inline:6px;color:var(--ink);overflow-wrap:anywhere}
+main{padding-bottom:40px}
+footer{padding-block:36px 48px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:.92rem;margin-top:40px}
+footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:var(--ink-2)}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:3px}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="/"><img src="/logo.svg" alt="" width="28" height="28" decoding="async"> CViper <small>Light</small></a>
+    <ul>
+      <li><a href="/#how">How it works</a></li>
+      <li><a href="/#what">What it does</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+      <li><a href="https://github.com/stevenbrady1/cviper-light">GitHub</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="doc">
+      <div class="eyebrow">CViper Light</div>
+      <h1>Privacy policy</h1>
+      <p class="lede">There is no account, no server of ours, and no analytics. Your CV, your saved jobs and your applications sit on your own device. We receive nothing.</p>
+      <p class="meta">For CViper Light 0.1.0. This page mirrors the policy the app generates from its own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds its code to. It changes when that list changes, and not otherwise.</p>
+
+      <div class="callout">
+        <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, and only the services listed on this page.</p>
+        <p>We — the people who make CViper Light — receive nothing from it. Not your CV, not your searches, not your keys, not whether you use it at all.</p>
+      </div>
+
+      <h2>What the app keeps, and where</h2>
+      <p>Everything is on your own device. There is nowhere else for it to be.</p>
+      <ul>
+        <li><strong>Your jobs, applications, CV text and every analysis</strong> — one database file, <span class="host">cviper.db</span>, in this app's data folder for your user account.</li>
+        <li><strong>Your API keys</strong> — this device's credential store: Credential Manager on Windows, the Keychain on an iPhone, iPad or Mac, the Secret Service on Linux. One entry per key. The app cannot read a key back into the screen, so if you forget one you paste a new one.</li>
+        <li><strong>Which job boards you enabled and how you ordered them</strong> — <span class="host">job-boards.json</span> in the same data folder.</li>
+        <li><strong>Small conveniences: your last search, today's request count, and that you have seen the introduction</strong> — the app's own browser storage, which no other program reads.</li>
+      </ul>
+
+      <h2>Nothing is sent anywhere on its own</h2>
+      <p>The app makes no request when you open it. It does not phone home, and it does not even check for its own updates unless you press the button. Every request it makes is one you started: a job search, a CV check against a provider you chose, an update check you pressed, or a job advert you asked it to fetch.</p>
+      <p>There is no telemetry — not "anonymous statistics", not crash reports, none. The Settings screen has a switch showing this, permanently off, and a test fails the app's build if any code ever reads it as on.</p>
+
+      <h2>Every address the app can contact</h2>
+      <p>This is not a summary. It is the exact set of addresses the code is allowed to name; a test fails the app's build if one is added without appearing on this list.</p>
+
+      <h3>Sent with your own key, when you ask</h3>
+      <p>These carry a key you pasted into Settings, under an account that is yours. The bill, if there is one, is between you and that provider.</p>
+      <ul>
+        <li><span class="host">api.openai.com</span> — A CV analysis you start, sent with your own OpenAI key under your own OpenAI account.</li>
+        <li><span class="host">api.anthropic.com</span> — A CV analysis you start, sent with your own Anthropic key under your own Anthropic account.</li>
+        <li><span class="host">api.adzuna.com</span> — A job search you start, sent with the free Adzuna key you registered yourself.</li>
+        <li><span class="host">www.reed.co.uk</span> — A job search you start, sent with the free Reed key you registered yourself. Reed's developer page is also opened in your browser from Settings.</li>
+      </ul>
+
+      <h3>Only when you press a button, with no key</h3>
+      <p>A plain request with nothing about you in it beyond the request itself.</p>
+      <ul>
+        <li><span class="host">github.com</span> — The update check reads a small signed file from this app's public GitHub releases. It happens when you press "Check for updates", and carries no data about you beyond the request itself. The source code is also opened in your browser from Settings → About.</li>
+      </ul>
+
+      <h3>Opened in your browser, never by the app</h3>
+      <p>The app hands the address to your own browser and is not involved from then on. What that site sees is what your browser shows it. No tracking parameters are added.</p>
+      <ul>
+        <li><span class="host">developer.adzuna.com</span> — The page where you register your own Adzuna key. Opened in your browser from Settings; the app does not load it.</li>
+        <li><span class="host">platform.openai.com</span> — The page where you create your own OpenAI API key. The welcome screen and the OpenAI card in Settings hand the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
+        <li><span class="host">www.linkedin.com</span> — A keyless search link for LinkedIn.</li>
+        <li><span class="host">uk.indeed.com</span> — A keyless search link for Indeed.</li>
+        <li><span class="host">www.totaljobs.com</span> — A keyless search link for Totaljobs.</li>
+        <li><span class="host">www.cv-library.co.uk</span> — A keyless search link for CV-Library.</li>
+        <li><span class="host">www.adzuna.co.uk</span> — A keyless search link for Adzuna's public search.</li>
+        <li><span class="host">www.google.com</span> — A keyless search link for Google Jobs.</li>
+        <li><span class="host">jobs.theguardian.com</span> — A keyless search link for Guardian Jobs.</li>
+        <li><span class="host">www.jobserve.com</span> — A keyless search link for Jobserve. The app never loads the page, and it never scrapes Jobserve.</li>
+        <li><span class="host">cviper.ai</span> — The full CViper, and the page about this app. A few one-line signposts and the About entry in Settings hand the address to your browser when you tap them; the app never loads it, and nothing is added to the link.</li>
+      </ul>
+      <p>Each keyless job-board link is read from <span class="host">job-boards.json</span>. Pressing one hands the address to your own browser; the app never loads the page.</p>
+
+      <h3>Stays on this computer</h3>
+      <p>A program running on this same machine. The request never reaches the internet.</p>
+      <ul>
+        <li><span class="host">127.0.0.1</span> — Ollama, if you installed it. The request goes to a program on this computer, not to the internet.</li>
+        <li><span class="host">localhost</span> — Named only so the fetch-from-link guard can refuse it. Never contacted.</li>
+      </ul>
+
+      <h3>The one page you ask it to fetch</h3>
+      <p>When you paste a job advert's link and press Fetch, the app opens that one page, the same as your browser would. The site sees your IP address, exactly as it would if you had clicked the link yourself. It opens exactly one page: it does not follow links, does not crawl, and does not load images, adverts or trackers. It carries no cookies, no sign-in and no API key — it cannot even reach your saved keys. Addresses on your own computer or home network are refused before anything is sent. Nothing is sent to us, because there is no server of ours to send it to.</p>
+
+      <h2>Services you may choose to use</h2>
+      <p>If you paste an API key for OpenAI, Anthropic, Adzuna or Reed, the app sends the request you start to that service under your own account, and that service handles what it receives under its own privacy policy, not this one. The key itself is stored in your device's credential store, and the app has no way to read it back into the screen.</p>
+      <p>If you run Ollama, the analysis goes to that program on the same device and not to the internet.</p>
+      <p>A keyless job-board link is handed to your own browser. What that site sees is what your browser shows it; the app is not involved from then on.</p>
+
+      <!-- NOT from the generated policy: sourced from the app repo's README.md,
+           section "Your data, and getting it out". -->
+      <h2>Taking your data with you</h2>
+      <p>Everything lives in one database file in the app's own data folder. Settings exports the whole thing as a single readable <span class="host">.json</span> file, wherever you choose to put it, and imports it back. A CV that arrived as a JSON Resume can also go back out on its own, so it can go into any tool that reads the format.</p>
+      <p>Import merges rather than overwrites: records with the same id are updated and nothing is ever deleted, which the confirmation screen says before it writes anything.</p>
+
+      <h2>Deleting your data</h2>
+      <p>Settings → Delete everything removes the database, every saved key and the preferences, and the app returns to its first-run state. A test fails the app's build if a new table or store is left out of it.</p>
+      <p>Do that <em>before</em> uninstalling if you want the keys gone as well: on some systems the credential store keeps an app's entries after the app itself is removed.</p>
+
+      <!-- NOT from the generated policy: this site, which the app's policy has
+           no reason to describe. -->
+      <h2>This website</h2>
+      <p>cviper.ai sets no cookies, runs no analytics and makes no third-party requests. There is no font, script, image or tracker loaded from anywhere else — everything you are reading is served from this domain. Our host, GitHub Pages, keeps its own server logs of requests; we do not read them and cannot connect them to anything in the app.</p>
+
+      <h2>Children</h2>
+      <p>CViper Light is a job-application tool and is not directed at children under 13. It collects no data from anyone.</p>
+
+      <h2>Questions</h2>
+      <p>Ask on the public issue tracker: <a href="https://github.com/stevenbrady1/cviper-light/issues">github.com/stevenbrady1/cviper-light/issues</a>. The source code is public under the MIT licence, so every statement on this page can be checked against it.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span>© 2026 CViper · Made in the UK</span>
+      <span><a href="/">Home</a> · <a href="https://github.com/stevenbrady1/cviper-light">GitHub</a> · <a href="https://github.com/stevenbrady1/cviper-light/issues">Report a problem</a></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

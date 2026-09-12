@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico">
+<title>Privacy — CViper Light</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://cviper.ai/privacy/">
+<meta http-equiv="refresh" content="0; url=/privacy/">
+
+<!--
+  A signpost, not a page. The real policy is at /privacy/.
+
+  WHY THIS FILE EXISTS
+  The CViper Light app repository already publishes this exact URL as its
+  store-listing privacy URL, in two committed places:
+
+      stevenbrady1/cviper-light
+        docs/app-store/LISTING.md      "Privacy Policy URL | https://cviper.ai/light/privacy"
+        docs/app-store/README.md       "The hosted site publishes it at cviper.ai/light/privacy"
+
+  A store submission whose privacy URL 404s is rejected, so this address has to
+  resolve. It forwards to /privacy/ rather than duplicating the text, because a
+  second copy of a privacy policy is a second thing to drift.
+
+  If the app repo's listing is ever changed to point at /privacy/ directly,
+  this file can be deleted.
+
+  No external requests, consistent with the rest of this site: a meta refresh
+  plus a real link, so it works with JavaScript disabled.
+-->
+
+<style>
+:root{--bg:#FBFBF8;--ink:#18212B;--ink-2:#4B5563;--accent:#2B4C9B}
+@media (prefers-color-scheme:dark){:root{--bg:#131719;--ink:#E8EBE6;--ink-2:#B5BDB8;--accent:#7EA0EA}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.55;display:grid;place-items:center;min-height:100vh;padding-block:40px;padding-inline:20px}
+main{max-width:40ch;text-align:center}
+p{margin:0;color:var(--ink-2)}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+  <p>The CViper Light privacy policy has moved to <a href="/privacy/">cviper.ai/privacy</a>.</p>
+</main>
+</body>
+</html>
