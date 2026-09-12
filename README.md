@@ -3,7 +3,18 @@
 The static holding page served at **https://cviper.ai** while the CViper hosted
 application is paused.
 
-- `index.html` — the whole site. One file, no build step, no external requests.
+- `index.html` — the home page. No build step, no external requests.
+- `privacy/index.html` — the privacy policy, served at `/privacy`. **Not an
+  original document**: its content is transcribed from the privacy policy the
+  CViper Light app _generates_ from its own host registry
+  (`docs/app-store/privacy-policy.md` in `stevenbrady1/cviper-light`, rendered
+  by `policyDocument.ts` from `apps/light/src/lib/outbound-hosts.ts` and
+  `dataLocations.ts`). **Refresh this page whenever that registry changes** —
+  nothing links the two repositories, so the drift would be silent. The full
+  provenance and refresh trigger are in a comment at the top of the file.
+- `light/privacy/index.html` — a redirect to `/privacy`, because the app's store
+  listing already publishes `cviper.ai/light/privacy` as its privacy-policy URL.
+  Delete it if that listing is ever repointed.
 - `CNAME` — tells GitHub Pages the custom domain is `cviper.ai`.
 - `.nojekyll` — skips Jekyll processing; this is plain HTML.
 - `.gitattributes` — pins line endings to LF so `CNAME` never picks up a
