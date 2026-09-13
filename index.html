@@ -6,7 +6,7 @@
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>CViper Light — Make every application count</title>
-<meta name="description" content="CViper Light shows you how your CV measures up to each job, and exactly what to change. Free Windows app. No account, your own OpenAI key.">
+<meta name="description" content="CViper Light shows you how your CV measures up to each job, and exactly what to change. Free Windows app. No account, your own AI key.">
 <link rel="canonical" href="https://cviper.ai/">
 <meta property="og:title" content="CViper Light — Make every application count">
 <meta property="og:description" content="See how your CV measures up to each job, and exactly what to change. On your own computer. Free, private, no account.">
@@ -191,8 +191,8 @@ footer .paused{margin-top:16px;max-width:62ch}
       <p class="sub">There is no CViper server. The app runs on your PC, talks directly to the AI you choose with your own key, and keeps everything else on your disk.</p>
       <div class="grid3">
         <div class="tile"><h3>No account</h3><p>Nothing to register, no password to forget, no emails from us. Install it and start.</p></div>
-        <div class="tile"><h3>Nothing comes to us</h3><p>We have no server and no copy of your data. Your CV goes to the AI you choose — OpenAI, or a model running on your own PC — and nowhere else.</p></div>
-        <div class="tile"><h3>Your own OpenAI key</h3><p>You pay OpenAI directly — a typical check costs about 2–3p. Your key is stored in Windows' own credential store.</p></div>
+        <div class="tile"><h3>Nothing comes to us</h3><p>We have no server and no copy of your data. Your CV goes to the AI provider you choose — with your own key — or to a model running on your own PC, and nowhere else.</p></div>
+        <div class="tile"><h3>Your own AI key</h3><p>Bring a key from the AI provider you choose and pay them directly; a typical CV check costs a few pence. Or run a model on your own PC for free. Your key is stored in Windows' own credential store.</p></div>
       </div>
     </div>
   </section>
@@ -203,7 +203,7 @@ footer .paused{margin-top:16px;max-width:62ch}
       <h2>Three steps to your first CV check.</h2>
       <div class="steps">
         <div class="step"><h3>Install CViper Light</h3><p>From the Microsoft Store once it's live. It opens straight into a short welcome.</p></div>
-        <div class="step"><h3>Paste your OpenAI key</h3><p>The welcome screen links to where you get one and shows what a typical CV costs. One paste, done.</p></div>
+        <div class="step"><h3>Add your AI key</h3><p>Paste a key from the provider you choose, or point the app at a model running on your PC. The welcome screen shows where to get a key and what a check typically costs.</p></div>
         <div class="step"><h3>Drop in your CV and a job</h3><p>Paste the job advert or its link. You get a match score, the skills you match, the ones you are missing, and what to change first.</p></div>
       </div>
     </div>
@@ -228,15 +228,15 @@ footer .paused{margin-top:16px;max-width:62ch}
       <div class="eyebrow">Questions</div>
       <h2>Before you download.</h2>
       <div class="faq">
-        <details><summary>Is it really free?</summary><p>Yes. The app is free and there is no paid tier. The only cost is what OpenAI charges for the AI calls you make with your own key — typically a few pence, about 2–3p for a CV check. You can also run it with no key at all.</p></details>
-        <details><summary>Where do I get an OpenAI key, and what does it cost?</summary><p>From your OpenAI account under "API keys". You add a small amount of credit and pay only for what you use. The app's welcome screen links straight there and says what a typical check costs — about 2–3p.</p></details>
-        <details><summary>Is my CV safe?</summary><p>It stays on your computer until you ask for an AI reading of it. Then the text goes from your PC straight to OpenAI using your key, under OpenAI's API terms — not through us. We never see it. Pick a model running on your own PC instead and it does not leave at all.</p></details>
+        <details><summary>Is it really free?</summary><p>Yes. The app is free and there is no paid tier. The only cost is what your AI provider charges for the calls you make with your own key — typically a few pence for a CV check — or nothing at all with a local model.</p></details>
+        <details><summary>Where do I get an AI key, and what does it cost?</summary><p>From the provider you choose, under their API keys page. Today the app has a key screen for OpenAI (<a href="https://platform.openai.com/api-keys">platform.openai.com/api-keys</a>) and for Anthropic (<a href="https://console.anthropic.com/settings/keys">console.anthropic.com/settings/keys</a>); both bill your own account, and a typical CV check costs a few pence with either. The app tests the key before it saves it, keeps it in your computer's credential store, and never shows it back. Prefer no key at all? Install Ollama and the app uses a model on your own PC for free.</p></details>
+        <details><summary>Is my CV safe?</summary><p>It stays on your computer until you ask for an AI reading of it. Then the text goes from your PC straight to the provider whose key you added, under that provider's API terms — not through us. We never see it. Pick a model running on your own PC instead and it does not leave at all.</p></details>
         <details><summary>When can I download it?</summary><p>The first public Windows build is being prepared for the Microsoft Store now. Watch the <a href="https://github.com/stevenbrady1/cviper-light">GitHub repo</a> to be notified. macOS is not offered for now.</p></details>
         <details><summary>Does it make things up?</summary><p>It is designed not to. It reads your CV and tells you how it compares with the advert — it does not write CV content for you, and it does not add skills or jobs you did not give it. Always read the result before you act on it.</p></details>
         <details><summary>Who built this?</summary><p>One person — a product manager with years in London banking and finance hiring — as a side project. It is maintained in spare time; questions and bugs go through <a href="https://github.com/stevenbrady1/cviper-light/issues">GitHub Issues</a>.</p></details>
       </div>
       <div class="privacy">
-        <p><strong>Privacy, in one paragraph.</strong> CViper Light runs on your computer. We have no server, no accounts, and no copy of your data. Your CV and your OpenAI key only ever go to the AI you choose — today that's OpenAI, or a model running on your own PC. Your job-board keys go only to Adzuna or Reed, and only when you search. This website sets no cookies. <a href="/privacy/">Read the full privacy policy</a>.</p>
+        <p><strong>Privacy, in one paragraph.</strong> CViper Light runs on your computer. We have no server, no accounts, and no copy of your data. Your CV, a pasted advert and your own AI key only ever go to the provider you choose, or to a model running on your own PC. Your job-board keys go only to Adzuna or Reed, and only when you search. This website sets no cookies. <a href="/privacy/">Read the full privacy policy</a>.</p>
       </div>
     </div>
   </section>
