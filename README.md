@@ -3,7 +3,10 @@
 The static holding page served at **https://cviper.ai** while the CViper hosted
 application is paused.
 
-- `index.html` — the home page. No build step, no external requests.
+- `index.html` — the home page. No build step, no external requests. A small
+  inline script forwards `?tab=privacy` to `/privacy/`, because CViper Light
+  builds ship that link; with JavaScript off the forward does not run, so the
+  page carries a plain **Privacy** link in the top navigation and in the footer.
 - `privacy/index.html` — the privacy policy, served at `/privacy`. **Not an
   original document**: its content is transcribed from the privacy policy the
   CViper Light app _generates_ from its own host registry

@@ -12,6 +12,39 @@
 <meta property="og:description" content="See how your CV measures up to each job, and exactly what to change. On your own computer. Free, private, no account.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cviper.ai/">
+
+<!--
+  cviper.ai/?tab=privacy -> /privacy/
+
+  CViper Light ships CVIPER_PRIVACY_URL = 'https://cviper.ai/?tab=privacy'
+  (apps/light/src/features/signposts/links.ts), which the Settings → Privacy
+  signpost hands to the browser. `tab` meant a tab in the old hosted app; this
+  site has no tabs, so that link landed people on the ordinary home page with
+  no privacy policy in sight.
+
+  Fixed here rather than in the app: the app repository is changing the
+  constant to https://cviper.ai/privacy/ , but builds already carrying the old
+  URL keep working, and a website change needs no re-tag.
+
+  IT MUST DEGRADE SAFELY. With JavaScript off, nothing below runs, so the home
+  page also carries a plain "Privacy" link in the top navigation, another in
+  the privacy panel at the end of the FAQ, and a third in the footer. The
+  script is a convenience, never the only route.
+
+  Inline on purpose: this site loads no external script, and never will.
+-->
+<script>
+(function () {
+  try {
+    if (/[?&]tab=privacy(&|$)/.test(window.location.search)) {
+      // replace(), not assign(): Back should return where the user came from,
+      // not to a URL that immediately forwards again.
+      window.location.replace('/privacy/');
+    }
+  } catch (e) {}
+})();
+</script>
+
 <style>
 :root{
   --bg:#FBFBF8; --surface:#FFFFFF; --ink:#18212B; --ink-2:#4B5563; --ink-3:#6E7781;
@@ -111,6 +144,7 @@ footer .paused{margin-top:16px;max-width:62ch}
       <li><a href="#how">How it works</a></li>
       <li><a href="#what">What it does</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li><a href="/privacy/">Privacy</a></li>
       <li><a href="https://github.com/stevenbrady1/cviper-light">GitHub</a></li>
     </ul>
   </nav>
