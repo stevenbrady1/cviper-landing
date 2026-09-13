@@ -1,0 +1,58 @@
+# Does /privacy/ still say what the app's privacy policy says?
+#
+# privacy/index.html is a transcription of
+#   stevenbrady1/cviper-light : docs/app-store/privacy-policy.md
+# which the app generates from its own host registry. Nothing links the two
+# repositories, so the page drifted silently -- four app changes (L-92, L-105,
+# L-106, L-110) shipped while this site still described the old behaviour,
+# including two live hosts the page did not name at all.
+#
+# WHY THE SCHEDULE IS THE IMPORTANT TRIGGER
+# Drift starts when cviper-light merges a change to that file. It does not
+# start when this repository is pushed to. A push-only check would run only at
+# the moment someone has just regenerated the page -- the one moment it is
+# guaranteed to pass -- and would sit silent through every real drift event.
+# So: `schedule` catches drift, `push` catches a bad regeneration, and
+# `workflow_dispatch` is for checking on demand after an app release.
+#
+# WHY NOT A CROSS-REPO TRIGGER
+# A `repository_dispatch` fired from cviper-light's CI whenever that file
+# changes would be tighter: minutes instead of up to a day. It needs a personal
+# access token stored as a secret in the app repository, owned by one person
+# and with an expiry date. This project has already lost a bot to exactly that
+# -- an expired PAT that failed quietly. Deliberately deferred, not overlooked:
+# a check that dies when a token expires is worse than one that is a day late.
+#
+# WHEN THIS GOES RED
+# It means the app's policy changed and this page has not been regenerated yet.
+# That red window is the correct signal, not a nuisance -- there are no grace
+# periods, retries or tolerances here on purpose. The fix is a one-commit
+# follow-up; the failure output prints the missing statements, the new sha256
+# and the commit to stamp. Steps are in README.md ("Refreshing the privacy
+# page") and in the script's docstring. Do not soften the check.
+
+name: Privacy policy drift
+
+on:
+  schedule:
+    # 07:17 UTC daily. Off the hour: GitHub delays scheduled runs that land on
+    # the busiest minutes.
+    - cron: '17 7 * * *'
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Page matches the published policy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # No pip install, no requirements file: the script is standard library
+      # only, so there is nothing here to pin, cache or let rot.
+      - name: Compare /privacy/ with cviper-light's published policy
+        run: python3 tools/check_privacy_drift.py

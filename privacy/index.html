@@ -34,12 +34,43 @@
   addresses below is the exact set the app is allowed to contact - not a
   summary, and not somebody's recollection.
 
+  ---------------------------------------------------------------------------
+  SOURCE STAMP - which version of the app this page describes
+  ---------------------------------------------------------------------------
+      source file    docs/app-store/privacy-policy.md
+      last changed   982a9b4d99edd0a80296625cb7f666b47539f1de   (on main)
+                     content written by
+                     6a585c9ea6679cbeed190f5a7e4b7353b4134853
+                     "feat(keyless): fetch both public job feeds from Rust,
+                      with no route to a key (L-110)"
+      transcribed    from cviper-light main at
+                     ba27b220fa3f0653e7fb8228ef00dd3a1301d45b (2026-09-13)
+      sha256         f223f3cec6a140bb2582e9d0a2690ec38a134e34bdbc37ffed5e216dbfbd7857
+      app version    CViper Light 0.1.0
+
+  The stamp says which version of the app this page describes. It is NOT what
+  holds the page to the app - the drift check described next is, and it fails
+  the build rather than warning. `check_privacy_drift.py` prints the three
+  values above on every run, so a regeneration copies them in.
+
   >>> REFRESH TRIGGER <<<
   When a host or a storage location changes in that repo, this page is STALE
   and must be updated to match the regenerated
-  docs/app-store/privacy-policy.md. This page cannot detect that on its own -
-  the two repositories have no link between them. Treat any change to
-  outbound-hosts.ts or dataLocations.ts as a change to this file.
+  docs/app-store/privacy-policy.md. Treat any change to outbound-hosts.ts or
+  dataLocations.ts as a change to this file.
+
+  This used to be unobservable - the two repositories have no link between
+  them, so drift was silent, and it happened: four separate changes (L-92
+  launch update check, L-105 Anthropic, L-106 the AI consent record, L-110 the
+  two keyless feeds) landed in the app while this page still described the old
+  behaviour. `.github/workflows/privacy-drift.yml` now fetches the policy from
+  cviper-light main on a daily schedule, on every push and on demand, and FAILS
+  - not warns - when a statement of it is missing from the rendered text of
+  this page. The daily run is the one that catches real drift: drift starts in
+  the other repository, where a push here is not happening. Run it locally
+  with:
+
+      python tools/check_privacy_drift.py
 
   Two sections are NOT from the generated policy and are marked in the source
   below, because the generated document does not cover them:
@@ -47,9 +78,8 @@
       ("Your data, and getting it out"), which documents the export/import.
     * "This website" - about cviper.ai itself, which the app's policy has no
       reason to describe.
-
-  Content sourced against CViper Light 0.1.0
-  (APP_VERSION in apps/light/src/features/settings/backup.ts).
+  The drift check only asks that the generated policy is fully present; extra
+  sections like those two are allowed, and are the only extra sections here.
 
   ===========================================================================
   NO EXTERNAL REQUESTS. EVER.
@@ -134,60 +164,57 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <div class="eyebrow">CViper Light</div>
       <h1>Privacy policy</h1>
       <p class="lede">There is no account, no server of ours, and no analytics. Your CV, your saved jobs and your applications sit on your own device. We receive nothing.</p>
-      <p class="meta">For CViper Light 0.1.0. This page mirrors the policy the app generates from its own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds its code to. It changes when that list changes, and not otherwise.</p>
+      <p class="meta">For CViper Light 0.1.0. This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes and not otherwise. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
 
       <div class="callout">
         <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, and only the services listed on this page.</p>
-        <p>We — the people who make CViper Light — receive nothing from it. Not your CV, not your searches, not your keys, not whether you use it at all.</p>
+        <p>We — the people who make CViper Light — receive nothing from it. Not your CV, not your searches, not your keys, not whether you use it at all. The one address on this page that is ours, cviper.ai, is only ever opened in your own browser when you tap a line that names it; the app never contacts it, and what that site sees is what your browser shows it.</p>
       </div>
 
       <h2>What the app keeps, and where</h2>
-      <p>Everything is on your own device. There is nowhere else for it to be.</p>
       <ul>
-        <li><strong>Your jobs, applications, CV text and every analysis</strong> — one database file, <span class="host">cviper.db</span>, in this app's data folder for your user account.</li>
-        <li><strong>Your API keys</strong> — this device's credential store: Credential Manager on Windows, the Keychain on an iPhone, iPad or Mac, the Secret Service on Linux. One entry per key. The app cannot read a key back into the screen, so if you forget one you paste a new one.</li>
+        <li><strong>Your jobs, applications, CV text and every analysis</strong> — one database file, <span class="host">cviper.db</span>, in this app’s data folder for your user account.</li>
+        <li><strong>Your API keys</strong> — this device’s credential store (the Keychain on an iPhone, iPad or Mac; Credential Manager on Windows; the Secret Service on Linux), one entry per key.</li>
         <li><strong>Which job boards you enabled and how you ordered them</strong> — <span class="host">job-boards.json</span> in the same data folder.</li>
-        <li><strong>Small conveniences: your last search, today's request count, and that you have seen the introduction</strong> — the app's own browser storage, which no other program reads.</li>
+        <li><strong>Which AI providers you agreed to send your CV to</strong> — <span class="host">ai-provider-consent.json</span> in the same data folder.</li>
+        <li><strong>Small conveniences: your last search, today’s request count, and that you have seen the introduction</strong> — this app’s own browser storage, which no other program reads.</li>
       </ul>
 
-      <h2>Nothing is sent anywhere on its own</h2>
-      <p>The app makes no request when you open it. It does not phone home, and it does not even check for its own updates unless you press the button. Every request it makes is one you started: a job search, a CV check against a provider you chose, an update check you pressed, or a job advert you asked it to fetch.</p>
-      <p>There is no telemetry — not "anonymous statistics", not crash reports, none. The Settings screen has a switch showing this, permanently off, and a test fails the app's build if any code ever reads it as on.</p>
-
       <h2>Every address the app can contact</h2>
-      <p>This is not a summary. It is the exact set of addresses the code is allowed to name; a test fails the app's build if one is added without appearing on this list.</p>
+      <p>This is not a summary. It is the exact set of addresses the code is allowed to name; a test fails the build if one is added without appearing here. Two things below have no fixed address — the advert page you choose, and Windows itself — so they are described instead of named.</p>
 
       <h3>Sent with your own key, when you ask</h3>
       <p>These carry a key you pasted into Settings, under an account that is yours. The bill, if there is one, is between you and that provider.</p>
       <ul>
         <li><span class="host">api.openai.com</span> — A CV analysis you start, sent with your own OpenAI key under your own OpenAI account.</li>
-        <li><span class="host">api.anthropic.com</span> — A CV analysis you start, sent with your own Anthropic key under your own Anthropic account.</li>
+        <li><span class="host">api.anthropic.com</span> — A CV analysis you start, but only if an Anthropic key is already in this computer’s credential store. This version has no screen for adding one, so for most people it is never contacted.</li>
         <li><span class="host">api.adzuna.com</span> — A job search you start, sent with the free Adzuna key you registered yourself.</li>
-        <li><span class="host">www.reed.co.uk</span> — A job search you start, sent with the free Reed key you registered yourself. Reed's developer page is also opened in your browser from Settings.</li>
+        <li><span class="host">www.reed.co.uk</span> — A job search you start, sent with the free Reed key you registered yourself. Reed’s developer page is also opened in your browser from Settings.</li>
       </ul>
 
       <h3>Only when you press a button, with no key</h3>
       <p>A plain request with nothing about you in it beyond the request itself.</p>
       <ul>
-        <li><span class="host">github.com</span> — The update check reads a small signed file from this app's public GitHub releases. It happens when you press "Check for updates", and carries no data about you beyond the request itself. The source code is also opened in your browser from Settings → About.</li>
+        <li><span class="host">www.arbeitnow.com</span> — The list of recent jobs this free job board publishes, read when you press Browse. It takes no key and no account, and nothing about you is sent — the site sees your IP address, exactly as it would if you opened its job board in your browser. It cannot search: CViper reads the recent list and narrows it down on your computer.</li>
+        <li><span class="host">jobs.theguardian.com</span> — Guardian Jobs’ public list of its twenty most recent UK jobs, read when you press Browse. It takes no key and no account, and nothing about you is sent — the site sees your IP address, exactly as it would if you opened the page yourself. Its own search page is also opened in your browser by the keyless buttons on the search screen, and the app does not load that one.</li>
+        <li><span class="host">github.com</span> — The update check reads a small signed file from this app’s public GitHub releases. It happens when you press “Check for updates”, and once when the app starts unless you switch that off in Settings. It carries no data about you beyond the request itself. The source code is also opened in your browser from Settings → About.</li>
+        <li><strong>any job-advert page you ask it to open — only when you press Fetch</strong> — You paste a link and press Fetch, and the app reads that one page so it can fill in the form. The address is whichever one you pasted, so it cannot be listed here in advance. It carries no cookies, no sign-in and no key, it cannot reach your saved keys, it follows no links, and addresses on your own computer or home network are refused. The site sees your IP address, exactly as it would if you had clicked the link yourself.</li>
       </ul>
 
       <h3>Opened in your browser, never by the app</h3>
-      <p>The app hands the address to your own browser and is not involved from then on. What that site sees is what your browser shows it. No tracking parameters are added.</p>
+      <p>The app hands the address to your own browser and is not involved from then on. What that site sees is what your browser shows it.</p>
       <ul>
         <li><span class="host">developer.adzuna.com</span> — The page where you register your own Adzuna key. Opened in your browser from Settings; the app does not load it.</li>
         <li><span class="host">platform.openai.com</span> — The page where you create your own OpenAI API key. The welcome screen and the OpenAI card in Settings hand the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
-        <li><span class="host">www.linkedin.com</span> — A keyless search link for LinkedIn.</li>
-        <li><span class="host">uk.indeed.com</span> — A keyless search link for Indeed.</li>
-        <li><span class="host">www.totaljobs.com</span> — A keyless search link for Totaljobs.</li>
-        <li><span class="host">www.cv-library.co.uk</span> — A keyless search link for CV-Library.</li>
-        <li><span class="host">www.adzuna.co.uk</span> — A keyless search link for Adzuna's public search.</li>
-        <li><span class="host">www.google.com</span> — A keyless search link for Google Jobs.</li>
-        <li><span class="host">jobs.theguardian.com</span> — A keyless search link for Guardian Jobs.</li>
-        <li><span class="host">www.jobserve.com</span> — A keyless search link for Jobserve. The app never loads the page, and it never scrapes Jobserve.</li>
-        <li><span class="host">cviper.ai</span> — The full CViper, and the page about this app. A few one-line signposts and the About entry in Settings hand the address to your browser when you tap them; the app never loads it, and nothing is added to the link.</li>
+        <li><span class="host">www.linkedin.com</span> — A keyless search link for LinkedIn, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">uk.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.totaljobs.com</span> — A keyless search link for Totaljobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.cv-library.co.uk</span> — A keyless search link for CV-Library, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.co.uk</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.google.com</span> — A keyless search link for Google Jobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.jobserve.com</span> — A keyless search link for Jobserve, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page, and it never scrapes Jobserve.</li>
+        <li><span class="host">cviper.ai</span> — The full CViper, and the page about this app. Three one-line signposts and the About entry in Settings hand the address to your browser when you tap them; the app never loads it, and nothing is added to the link.</li>
       </ul>
-      <p>Each keyless job-board link is read from <span class="host">job-boards.json</span>. Pressing one hands the address to your own browser; the app never loads the page.</p>
 
       <h3>Stays on this computer</h3>
       <p>A program running on this same machine. The request never reaches the internet.</p>
@@ -196,11 +223,14 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><span class="host">localhost</span> — Named only so the fetch-from-link guard can refuse it. Never contacted.</li>
       </ul>
 
-      <h3>The one page you ask it to fetch</h3>
-      <p>When you paste a job advert's link and press Fetch, the app opens that one page, the same as your browser would. The site sees your IP address, exactly as it would if you had clicked the link yourself. It opens exactly one page: it does not follow links, does not crawl, and does not load images, adverts or trackers. It carries no cookies, no sign-in and no API key — it cannot even reach your saved keys. Addresses on your own computer or home network are refused before anything is sent. Nothing is sent to us, because there is no server of ours to send it to.</p>
+      <h3>Done by Windows, not by this app</h3>
+      <p>Part of the operating system, around the app rather than inside it. It is listed because it is a real request leaving your PC, and left out it would look like something this app was hiding.</p>
+      <ul>
+        <li><strong>Microsoft, for the Windows WebView2 runtime this app draws in</strong> — WebView2 is part of Windows, not part of this app. It updates itself and checks downloads with SmartScreen on Microsoft’s schedule. CViper Light does not start those requests, cannot see them and cannot switch them off; they happen for every program on your PC that uses WebView2, whether or not this one is running.</li>
+      </ul>
 
       <h2>Services you may choose to use</h2>
-      <p>If you paste an API key for OpenAI, Anthropic, Adzuna or Reed, the app sends the request you start to that service under your own account, and that service handles what it receives under its own privacy policy, not this one. The key itself is stored in your device's credential store, and the app has no way to read it back into the screen.</p>
+      <p>If you paste an API key for OpenAI, Adzuna or Reed, the app sends the request you start to that service under your own account, and that service handles what it receives under its own privacy policy, not this one. The key itself is stored in your device's credential store (the Keychain on Apple devices, Credential Manager on Windows), and the app has no way to read it back into the screen.</p>
       <p>If you run Ollama, the analysis goes to that program on the same device and not to the internet.</p>
       <p>A keyless job-board link is handed to your own browser. What that site sees is what your browser shows it; the app is not involved from then on.</p>
 
@@ -211,7 +241,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <p>Import merges rather than overwrites: records with the same id are updated and nothing is ever deleted, which the confirmation screen says before it writes anything.</p>
 
       <h2>Deleting your data</h2>
-      <p>Settings → Delete everything removes the database, every saved key and the preferences, and the app returns to its first-run state. A test fails the app's build if a new table or store is left out of it.</p>
+      <p>Settings → Delete everything removes the database, every saved key and the preferences, and the app returns to its first-run state.</p>
       <p>Do that <em>before</em> uninstalling if you want the keys gone as well: on some systems the credential store keeps an app's entries after the app itself is removed.</p>
 
       <!-- NOT from the generated policy: this site, which the app's policy has
@@ -223,7 +253,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <p>CViper Light is a job-application tool and is not directed at children under 13. It collects no data from anyone.</p>
 
       <h2>Questions</h2>
-      <p>Ask on the public issue tracker: <a href="https://github.com/stevenbrady1/cviper-light/issues">github.com/stevenbrady1/cviper-light/issues</a>. The source code is public under the MIT licence, so every statement on this page can be checked against it.</p>
+      <p>Ask on the public issue tracker: <a href="https://github.com/stevenbrady1/cviper-light/issues">https://github.com/stevenbrady1/cviper-light/issues</a>. The source code is public under the MIT licence, so every statement on this page can be checked against it.</p>
     </div>
   </div>
 </main>
