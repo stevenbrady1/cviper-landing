@@ -12,6 +12,10 @@ application is paused.
   `dataLocations.ts`). **Refresh this page whenever that registry changes** —
   nothing links the two repositories, so the drift would be silent. The full
   provenance and refresh trigger are in a comment at the top of the file.
+- `light/index.html` — a redirect to `/`, because the app's About screen and
+  its store listing both publish `cviper.ai/light` as the page about the app,
+  and the home page already is that page. A forwarder rather than a second
+  page: two descriptions of one product is two things to keep true.
 - `light/privacy/index.html` — a redirect to `/privacy`, because the app's store
   listing already publishes `cviper.ai/light/privacy` as its privacy-policy URL.
   Delete it if that listing is ever repointed.

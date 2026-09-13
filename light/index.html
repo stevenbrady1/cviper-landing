@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico">
+<title>CViper Light</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://cviper.ai/">
+<meta http-equiv="refresh" content="0; url=/">
+
+<!--
+  A signpost, not a page. The page about CViper Light is the home page.
+
+  WHY THIS FILE EXISTS
+  The app already publishes this exact URL, in code and in its store listing:
+
+      stevenbrady1/cviper-light
+        apps/light/src/features/signposts/links.ts
+          LIGHT_PAGE_URL = 'https://cviper.ai/light'
+        apps/light/src/features/settings/about/About.tsx
+          the About entry, whose visible text reads "cviper.ai/light →"
+        docs/app-store/LISTING.md        "Marketing URL | https://cviper.ai/light"
+        docs/STORE-SUBMISSION.md         "Website | https://cviper.ai/light"
+
+  Until this file existed that link 404'd for every user who tapped About, and
+  a store listing whose marketing URL 404s is a bad first impression at best.
+
+  WHY A FORWARDER AND NOT A REAL PAGE
+  cviper.ai IS the page about CViper Light - the whole home page is about this
+  one app. A second page describing the same product would be a second thing to
+  keep true, and drift between two descriptions of one product is precisely the
+  defect this file was written alongside: /privacy/ had been wrong for four app
+  releases because nothing held it to the app. One description, one place to
+  fix.
+
+  It also means the app needs no change and no re-tag: the shipped constant and
+  the visible "cviper.ai/light →" text stay correct, as does every document
+  that cites the URL.
+
+  If the home page ever stops being about CViper Light, this file becomes a
+  real page rather than a forwarder. Do not delete it - the URL is published in
+  shipped code and in a store listing.
+
+  No external requests, consistent with the rest of this site: a meta refresh
+  plus a real link, so it works with JavaScript disabled.
+-->
+
+<style>
+:root{--bg:#FBFBF8;--ink:#18212B;--ink-2:#4B5563;--accent:#2B4C9B}
+@media (prefers-color-scheme:dark){:root{--bg:#131719;--ink:#E8EBE6;--ink-2:#B5BDB8;--accent:#7EA0EA}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.55;display:grid;place-items:center;min-height:100vh;padding-block:40px;padding-inline:20px}
+main{max-width:44ch;text-align:center}
+p{margin:0;color:var(--ink-2)}
+p + p{margin-top:12px}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+  <p>The page about CViper Light is <a href="/">cviper.ai</a>.</p>
+  <p><a href="/privacy/">Privacy policy</a> · <a href="https://github.com/stevenbrady1/cviper-light">Source on GitHub</a></p>
+</main>
+</body>
+</html>
