@@ -38,18 +38,18 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   5b8349f2ea9dc59f669b34a2986792ae64cb9c83   (on main)
-                     "fix(privacy): qualify the launch-check absolute, and
-                      four review findings (C1, W1-W4)"
-                     merged to main as PR #89,
-                     3a02f85323770b3e698de3941fe9269f8625bc6c -- a merge
+      last changed   c5392c3d91e5cb35a7b8f45e44d1f355155cd27b   (on main)
+                     "feat(product): the product must not read as tied to
+                      one AI provider (L-148)"
+                     merged to main as PR #96,
+                     b7157adebc6a3ebae7ecea1e129a27abcd4b3dde -- a merge
                      commit, so it does not itself "touch" the file and the
                      check names the commit that changed it. Both are correct
                      answers to different questions; cite whichever the check
                      prints.
       transcribed    from cviper-light main at
-                     5b8349f2ea9dc59f669b34a2986792ae64cb9c83 (2026-09-13)
-      sha256         f201e114eef20f8c5a107335737978057a85972b508185ed4b1609304bdbce4a
+                     c5392c3d91e5cb35a7b8f45e44d1f355155cd27b (2026-09-13)
+      sha256         1d884128c0e40a775785c16165a9cbbb0e62371958c7fe7a4922044f368e9d99
       app version    CViper Light 0.1.0
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -192,7 +192,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <p>These carry a key you pasted into Settings, under an account that is yours. The bill, if there is one, is between you and that provider.</p>
       <ul>
         <li><span class="host">api.openai.com</span> — A CV analysis, or a pasted job advert, that you start, sent with your own OpenAI key under your own OpenAI account.</li>
-        <li><span class="host">api.anthropic.com</span> — A CV analysis, or a pasted job advert, that you start, but only if an Anthropic key is already in this computer’s credential store. This version has no screen for adding one, so for most people it is never contacted.</li>
+        <li><span class="host">api.anthropic.com</span> — A CV analysis, or a pasted job advert, that you start, sent with your own Anthropic key under your own Anthropic account.</li>
         <li><span class="host">api.adzuna.com</span> — A job search you start, sent with the free Adzuna key you registered yourself. Adzuna’s API requires both parts of that key — the app ID and the app key — as parameters in the web address, so they appear in Adzuna’s own request logs. The request also carries your search words and location, which is what a search is, and Adzuna sees your IP address, exactly as it would if you searched on its own site yourself.</li>
         <li><span class="host">www.reed.co.uk</span> — A job search you start, sent with the free Reed key you registered yourself, carrying your search words and location — Reed sees those and your IP address, exactly as it would if you searched on reed.co.uk yourself. Reed’s developer page is also opened in your browser from Settings, and so is a keyless search link for Reed from <span class="host">job-boards.json</span>; the app never loads either page.</li>
       </ul>
@@ -211,6 +211,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <ul>
         <li><span class="host">developer.adzuna.com</span> — The page where you register your own Adzuna key. Opened in your browser from Settings; the app does not load it.</li>
         <li><span class="host">platform.openai.com</span> — The page where you create your own OpenAI API key. The welcome screen and the OpenAI card in Settings hand the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
+        <li><span class="host">console.anthropic.com</span> — The page where you create your own Anthropic API key. The Anthropic card in Settings hands the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
         <li><span class="host">www.linkedin.com</span> — A keyless search link for LinkedIn, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">uk.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.totaljobs.com</span> — A keyless search link for Totaljobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
@@ -235,7 +236,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       </ul>
 
       <h2>Services you may choose to use</h2>
-      <p>If you paste an API key for OpenAI, Adzuna or Reed, the app sends the request you start to that service under your own account, and that service handles what it receives under its own privacy policy, not this one. The key itself is stored in your device's credential store (the Keychain on Apple devices, Credential Manager on Windows), and the app has no way to read it back into the screen.</p>
+      <p>If you paste an API key for an AI provider, or for Adzuna or Reed, the app sends the request you start to that service under your own account, and that service handles what it receives under its own privacy policy, not this one. The key itself is stored in your device's credential store (the Keychain on Apple devices, Credential Manager on Windows), and the app has no way to read it back into the screen.</p>
       <p>If you run Ollama, the analysis goes to that program on the same device and not to the internet.</p>
       <p>A keyless job-board link is handed to your own browser. What that site sees is what your browser shows it; the app is not involved from then on.</p>
 
