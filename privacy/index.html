@@ -38,17 +38,18 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   597e75cd8b71d6d75e49a01d3e010e129f35e0c4   (on main)
-                     "fix(signposts): tighten the L-114 copy after review
-                      (L-114)"
-                     merged to main as PR #79,
-                     38157434fd2634753b9c7c4c5294d30dcf817196 -- a merge
+      last changed   5b8349f2ea9dc59f669b34a2986792ae64cb9c83   (on main)
+                     "fix(privacy): qualify the launch-check absolute, and
+                      four review findings (C1, W1-W4)"
+                     merged to main as PR #89,
+                     3a02f85323770b3e698de3941fe9269f8625bc6c -- a merge
                      commit, so it does not itself "touch" the file and the
-                     check names the commit that changed it. The policy is
-                     byte-identical at both.
+                     check names the commit that changed it. Both are correct
+                     answers to different questions; cite whichever the check
+                     prints.
       transcribed    from cviper-light main at
-                     597e75cd8b71d6d75e49a01d3e010e129f35e0c4 (2026-09-13)
-      sha256         c716a48cd267540bc09a0382fe97e6c88b390330a89ce71943f694febc5d621a
+                     5b8349f2ea9dc59f669b34a2986792ae64cb9c83 (2026-09-13)
+      sha256         f201e114eef20f8c5a107335737978057a85972b508185ed4b1609304bdbce4a
       app version    CViper Light 0.1.0
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -170,7 +171,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <p class="meta">For CViper Light 0.1.0. This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes and not otherwise. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
 
       <div class="callout">
-        <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, and only the services listed on this page.</p>
+        <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, or switched it on — and only the services listed on this page. Two things happen on their own: when the app starts it reads this app’s GitHub releases to see whether there is a newer version, unless you switch that off in Settings; and it asks this same computer whether Ollama is running, a request that never leaves it.</p>
         <p>We — the people who make CViper Light — receive nothing from it. Not your CV, not your searches, not your keys, not whether you use it at all. The one address on this page that is ours, cviper.ai, is only ever opened in your own browser when you tap a line that names it; the app never contacts it, and what that site sees is what your browser shows it.</p>
       </div>
 
@@ -180,6 +181,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><strong>Your API keys</strong> — this device’s credential store (the Keychain on an iPhone, iPad or Mac; Credential Manager on Windows; the Secret Service on Linux), one entry per key.</li>
         <li><strong>Which job boards you enabled and how you ordered them</strong> — <span class="host">job-boards.json</span> in the same data folder.</li>
         <li><strong>Which AI providers you agreed to send your CV to</strong> — <span class="host">ai-provider-consent.json</span> in the same data folder.</li>
+        <li><strong>Where each CV file came from on this computer</strong> — the file’s full path, kept in the same database file on this computer only — an export always leaves it out.</li>
         <li><strong>Small conveniences: your last search, today’s request count, and that you have seen the introduction</strong> — this app’s own browser storage, which no other program reads.</li>
       </ul>
 
@@ -189,10 +191,10 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <h3>Sent with your own key, when you ask</h3>
       <p>These carry a key you pasted into Settings, under an account that is yours. The bill, if there is one, is between you and that provider.</p>
       <ul>
-        <li><span class="host">api.openai.com</span> — A CV analysis you start, sent with your own OpenAI key under your own OpenAI account.</li>
-        <li><span class="host">api.anthropic.com</span> — A CV analysis you start, but only if an Anthropic key is already in this computer’s credential store. This version has no screen for adding one, so for most people it is never contacted.</li>
-        <li><span class="host">api.adzuna.com</span> — A job search you start, sent with the free Adzuna key you registered yourself.</li>
-        <li><span class="host">www.reed.co.uk</span> — A job search you start, sent with the free Reed key you registered yourself. Reed’s developer page is also opened in your browser from Settings.</li>
+        <li><span class="host">api.openai.com</span> — A CV analysis, or a pasted job advert, that you start, sent with your own OpenAI key under your own OpenAI account.</li>
+        <li><span class="host">api.anthropic.com</span> — A CV analysis, or a pasted job advert, that you start, but only if an Anthropic key is already in this computer’s credential store. This version has no screen for adding one, so for most people it is never contacted.</li>
+        <li><span class="host">api.adzuna.com</span> — A job search you start, sent with the free Adzuna key you registered yourself. Adzuna’s API requires both parts of that key — the app ID and the app key — as parameters in the web address, so they appear in Adzuna’s own request logs. The request also carries your search words and location, which is what a search is, and Adzuna sees your IP address, exactly as it would if you searched on its own site yourself.</li>
+        <li><span class="host">www.reed.co.uk</span> — A job search you start, sent with the free Reed key you registered yourself, carrying your search words and location — Reed sees those and your IP address, exactly as it would if you searched on reed.co.uk yourself. Reed’s developer page is also opened in your browser from Settings, and so is a keyless search link for Reed from <span class="host">job-boards.json</span>; the app never loads either page.</li>
       </ul>
 
       <h3>Only when you press a button, with no key</h3>
@@ -222,7 +224,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <h3>Stays on this computer</h3>
       <p>A program running on this same machine. The request never reaches the internet.</p>
       <ul>
-        <li><span class="host">127.0.0.1</span> — Ollama, if you installed it. The request goes to a program on this computer, not to the internet.</li>
+        <li><span class="host">127.0.0.1</span> — Ollama, if you installed it. The app checks on its own — when it opens, and again each time you change screens — whether Ollama is running, by asking this same computer. Nothing about this ever leaves this computer, whether or not Ollama answers.</li>
         <li><span class="host">localhost</span> — Named only so the fetch-from-link guard can refuse it. Never contacted.</li>
       </ul>
 
