@@ -38,14 +38,15 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   982a9b4d99edd0a80296625cb7f666b47539f1de   (on main)
-                     content written by
-                     6a585c9ea6679cbeed190f5a7e4b7353b4134853
-                     "feat(keyless): fetch both public job feeds from Rust,
-                      with no route to a key (L-110)"
+      last changed   597e75cd8b71d6d75e49a01d3e010e129f35e0c4   (on main)
+                     "fix(signposts): tighten the L-114 copy after review
+                      (L-114)"
+                     supersedes 38157434fd2634753b9c7c4c5294d30dcf817196,
+                     which landed the L-114 rewrite this transcription was
+                     first requested for
       transcribed    from cviper-light main at
-                     ba27b220fa3f0653e7fb8228ef00dd3a1301d45b (2026-09-13)
-      sha256         f223f3cec6a140bb2582e9d0a2690ec38a134e34bdbc37ffed5e216dbfbd7857
+                     597e75cd8b71d6d75e49a01d3e010e129f35e0c4 (2026-09-13)
+      sha256         c716a48cd267540bc09a0382fe97e6c88b390330a89ce71943f694febc5d621a
       app version    CViper Light 0.1.0
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -213,7 +214,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><span class="host">www.adzuna.co.uk</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.google.com</span> — A keyless search link for Google Jobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.jobserve.com</span> — A keyless search link for Jobserve, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page, and it never scrapes Jobserve.</li>
-        <li><span class="host">cviper.ai</span> — The full CViper, and the page about this app. Three one-line signposts and the About entry in Settings hand the address to your browser when you tap them; the app never loads it, and nothing is added to the link.</li>
+        <li><span class="host">cviper.ai</span> — This app's own website: its download page and the privacy policy, opened in your browser when you tap a line that names it. The app never contacts it, and nothing is added to the link.</li>
       </ul>
 
       <h3>Stays on this computer</h3>
