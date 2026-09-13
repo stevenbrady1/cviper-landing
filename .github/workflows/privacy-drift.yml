@@ -50,7 +50,11 @@ jobs:
     name: Page matches the published policy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # v5 is the first major that runs on Node 24. v4 still works, but every
+      # run prints a Node 20 deprecation warning, and a check whose output is
+      # noisy is a check people stop reading. (v7 is current; v5 is the
+      # smallest step that clears the warning.)
+      - uses: actions/checkout@v5
 
       # No pip install, no requirements file: the script is standard library
       # only, so there is nothing here to pin, cache or let rot.
