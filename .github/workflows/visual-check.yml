@@ -1,0 +1,151 @@
+# Does the live site still render the way it did when someone last looked?
+#
+# The hosted product's nightly visual-regression run was deliberately paused
+# in the 2026-09 mothball (CV-1400), which left the one surface with real
+# visitors — this site — with no visual cover at all (cycle item M4 /
+# CV-1403 in the app repository). This workflow is the cheapest honest
+# replacement, scoped to the pages people actually visit:
+#
+#   tests/pages.spec.ts          geometry a visitor's browser shows (gutters,
+#                                sideways scroll, the download button, the
+#                                published /light URLs)
+#   tests/screenshots.spec.ts    pixel comparison, light and dark, three widths
+#   tests/source-guards.spec.ts  promises the repo states in prose, made
+#                                executable (no external loads, the shorthand
+#                                trap, sw.js stays inert, CNAME stays clean)
+#
+# tools/check_privacy_drift.py (its own workflow) remains the CONTENT guard;
+# this one never reads what the pages say, only how they render.
+#
+# WHY BASELINES ARE GENERATED HERE AND NOT ON A DEV MACHINE
+# The pages use the system font stack, so two machines with different fonts
+# render different pixels while both being correct. A baseline committed from
+# a laptop arrives red. So a missing baseline is bootstrapped IN THIS JOB:
+# Playwright writes it on the first pass (and marks that test failed — that
+# is its "missing snapshot" behaviour, all modes), the job commits the new
+# PNGs back to the PR branch so the diff shows them for human review, and a
+# second pass is the job's verdict. A regression against a baseline that
+# already existed stays red through both passes; only genuinely new
+# screenshots pass. Do not update a baseline by hand — a deliberate refresh
+# is the workflow_dispatch input below.
+#
+# WHY A MISSING BASELINE ON MAIN FAILS INSTEAD OF REGENERATING
+# On main there is no PR diff for a human to look at, so a silent regenerate
+# would be a gate that certifies whatever it happens to see (the app repo's
+# rule 69 class: assert the artefact, never "the job didn't fail").
+
+name: Visual check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      update_snapshots:
+        description: Regenerate EVERY screenshot baseline on this runner and commit the result
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Pages render as committed
+    runs-on: ubuntu-latest
+    permissions:
+      # Solely for pushing runner-generated baselines back to the branch.
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # On a PR, check out the branch itself rather than the ephemeral
+          # merge commit, so newly generated baselines have somewhere to be
+          # committed. The branch is behind the merge commit only when main
+          # moved after the PR opened, which for this repository is rare and
+          # surfaces on the next push anyway.
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || '' }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Installs the chromium build pinned by @playwright/test plus the system
+      # fonts and libraries it renders with — the same set every run, which is
+      # what makes runner-generated baselines stable.
+      - run: npx playwright install --with-deps chromium
+
+      - name: Run the checks (bootstrapping any missing baseline)
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.update_snapshots) }}
+        run: |
+          # First pass. Playwright writes any missing baseline and fails that
+          # test; a real regression fails too. The two cases are told apart
+          # below by whether new baseline files appeared — never by re-running
+          # and hoping (a failed check must not share a branch with a passed
+          # one).
+          set +e
+          npx playwright test
+          first=$?
+          set -e
+
+          new="$(git status --porcelain tests/__screenshots__ 2>/dev/null || true)"
+
+          if [ "$first" -eq 0 ]; then
+            if [ -n "$new" ]; then
+              echo "::error::The run passed yet baseline files changed — that should be impossible; investigate before trusting this check."
+              exit 1
+            fi
+            exit 0
+          fi
+
+          if [ -z "$new" ]; then
+            echo "::error::Checks failed and no baseline was missing. That is a real finding — see the playwright-report artifact."
+            exit 1
+          fi
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "::error::Screenshot baselines are missing on main. They must land through a pull request, where the generated PNGs appear in the diff for review."
+            exit 1
+          fi
+          if [ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}" ]; then
+            echo "::error::This PR comes from a fork, so the workflow token cannot push the baselines it generated. A maintainer can fetch the branch and dispatch this workflow with update_snapshots."
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/__screenshots__
+          git commit -m "test(visual): baselines generated on the CI runner (CV-1403)"
+          git push
+
+          # Second pass is the verdict: fresh baselines pass trivially, but a
+          # regression against a baseline that already existed stays red here
+          # too. (A push made with the workflow token does not trigger another
+          # run, so this pass is the one that counts.)
+          echo "New baselines committed; re-running against them."
+          npx playwright test
+
+      - name: Regenerate every baseline (manual dispatch only)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.update_snapshots }}
+        run: |
+          npx playwright test --update-snapshots=all
+          if [ -z "$(git status --porcelain tests/__screenshots__)" ]; then
+            echo "Baselines already matched this runner's rendering; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/__screenshots__
+          git commit -m "test(visual): baselines refreshed on the CI runner (CV-1403)"
+          git push
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 14

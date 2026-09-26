@@ -30,6 +30,10 @@ application is paused.
 - `.nojekyll` — skips Jekyll processing; this is plain HTML.
 - `.gitattributes` — pins line endings to LF so `CNAME` never picks up a
   carriage return, which GitHub Pages would reject.
+- `tests/`, `playwright.config.ts`, `package.json` — the visual check (see
+  "The visual check"). Test-only; nothing in them is served.
+- `.github/workflows/visual-check.yml` — runs it on every pull request and
+  push to `main`.
 
 ## How it is served
 
@@ -56,6 +60,37 @@ Two CSS traps to avoid if you change the layout: `.hero` and `.did` must set
 padding and margin with longhand properties only. The `padding` or `margin`
 shorthand there resets the `.wrap` container's gutters and centring, which pins
 the text to the viewport edge on mobile.
+
+## The visual check
+
+`.github/workflows/visual-check.yml` (CV-1403) is the layout half of the
+site's safety net — the privacy-drift workflow checks what the pages *say*,
+this checks how they *render*. Three kinds of guard:
+
+- **Geometry** (`tests/pages.spec.ts`) — at 375, 768 and 1280px: no sideways
+  scroll, the side gutter holds (the shorthand trap above, in rendered form),
+  the download button points at `releases/latest` and stays a 44px tap
+  target, and the published URLs (`/light`, `/light/privacy`, `?tab=privacy`)
+  keep forwarding.
+- **Screenshots** (`tests/screenshots.spec.ts`) — home and privacy, light and
+  dark, all three widths, compared pixel-for-pixel against baselines in
+  `tests/__screenshots__/`.
+- **Source guards** (`tests/source-guards.spec.ts`) — no page loads anything
+  from another server, no `padding:`/`margin:` shorthand in `.hero`/`.did`
+  rules, `sw.js` stays a self-destructing worker, `CNAME` stays one clean
+  line.
+
+**Baselines are generated on the CI runner, never on a dev machine.** The
+pages use the system font stack, so two machines render different pixels
+while both being correct; a baseline made on a laptop arrives red. A missing
+baseline is created by the PR's own workflow run and committed back to the
+branch — review the PNGs in the diff. To refresh baselines after a deliberate
+visual change, run the workflow manually with `update_snapshots` ticked. Do
+not edit or locally regenerate the PNGs.
+
+To run locally: `npm ci && npx playwright install chromium && npm test`. The
+screenshot tests skip locally; `RUN_VISUAL=1 npm test` renders them with your
+machine's fonts for eyeballing — never commit what it produces.
 
 ## Refreshing the privacy page
 

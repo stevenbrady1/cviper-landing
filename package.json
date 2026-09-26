@@ -1,0 +1,11 @@
+{
+  "name": "cviper-landing-checks",
+  "private": true,
+  "description": "Playwright checks for the static site. The site itself has no build step and no runtime dependencies; everything in here is test-only and nothing in it is served.",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}
