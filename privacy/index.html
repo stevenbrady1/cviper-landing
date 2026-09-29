@@ -38,16 +38,18 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   179bb942dbd56322458bdcf1d834621e723d4a60   (on main)
-                     "fix(release): the two tests that pin the app version
-                      follow the 0.2.0 bump"
-                     The only change to the policy since c5392c3d91e5 is the
-                     version line (0.1.0 -> 0.2.0); the host registry and
-                     data locations are unchanged.
+      last changed   e42b228bf79f3328363d018ac486afe202b7ebb3   (on main)
+                     "feat(ai): Google Gemini, Mistral, xAI Grok and OpenRouter
+                      keys, one adapter for all four (L-177)"
+                     Adds seven hosts: four AI APIs and three key pages
+                     (openrouter.ai covers both of its uses). The version line
+                     moved 0.2.0 -> 0.3.0 with the 0.3.0 bump.
       transcribed    from cviper-light main at
-                     179bb942dbd56322458bdcf1d834621e723d4a60 (2026-09-14)
-      sha256         d72d4059cc2b7c0e81c573c197d365c14ec31777da2da1555b1c5bbd76338678
-      app version    CViper Light 0.2.0
+                     e42b228bf79f3328363d018ac486afe202b7ebb3 (2026-09-29)
+      sha256         0768bd02854b727265fb350d7b887579093f9f319495adee2a594f4ebeff2deb
+      app version    CViper Light 0.3.0 as the policy states it; the seven
+                     L-177 hosts ship in the release after 0.3.0 (a superset
+                     of what 0.3.0 contacts, never a subset)
 
   The stamp says which version of the app this page describes. It is NOT what
   holds the page to the app - the drift check described next is, and it fails
@@ -165,7 +167,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <div class="eyebrow">CViper Light</div>
       <h1>Privacy policy</h1>
       <p class="lede">There is no account, no server of ours, and no analytics. Your CV, your saved jobs and your applications sit on your own device. We receive nothing.</p>
-      <p class="meta">For CViper Light 0.2.0. This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes and not otherwise. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
+      <p class="meta">For CViper Light 0.3.0. This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes and not otherwise. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
 
       <div class="callout">
         <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, or switched it on — and only the services listed on this page. Two things happen on their own: when the app starts it reads this app’s GitHub releases to see whether there is a newer version, unless you switch that off in Settings; and it asks this same computer whether Ollama is running, a request that never leaves it.</p>
@@ -190,6 +192,10 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <ul>
         <li><span class="host">api.openai.com</span> — A CV analysis, or a pasted job advert, that you start, sent with your own OpenAI key under your own OpenAI account.</li>
         <li><span class="host">api.anthropic.com</span> — A CV analysis, or a pasted job advert, that you start, sent with your own Anthropic key under your own Anthropic account.</li>
+        <li><span class="host">generativelanguage.googleapis.com</span> — A CV analysis, or a pasted job advert, that you start, sent with your own Google Gemini key under your own Google account.</li>
+        <li><span class="host">api.mistral.ai</span> — A CV analysis, or a pasted job advert, that you start, sent with your own Mistral key under your own Mistral account.</li>
+        <li><span class="host">api.x.ai</span> — A CV analysis, or a pasted job advert, that you start, sent with your own xAI key under your own xAI account.</li>
+        <li><span class="host">openrouter.ai</span> — A CV analysis, or a pasted job advert, that you start, sent with your own OpenRouter key under your own OpenRouter account. OpenRouter passes the request on to the company that runs the model you use. Its key page is also opened in your browser from Settings; the app never loads that page.</li>
         <li><span class="host">api.adzuna.com</span> — A job search you start, sent with the free Adzuna key you registered yourself. Adzuna’s API requires both parts of that key — the app ID and the app key — as parameters in the web address, so they appear in Adzuna’s own request logs. The request also carries your search words and location, which is what a search is, and Adzuna sees your IP address, exactly as it would if you searched on its own site yourself.</li>
         <li><span class="host">www.reed.co.uk</span> — A job search you start, sent with the free Reed key you registered yourself, carrying your search words and location — Reed sees those and your IP address, exactly as it would if you searched on reed.co.uk yourself. Reed’s developer page is also opened in your browser from Settings, and so is a keyless search link for Reed from <span class="host">job-boards.json</span>; the app never loads either page.</li>
       </ul>
@@ -209,6 +215,9 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><span class="host">developer.adzuna.com</span> — The page where you register your own Adzuna key. Opened in your browser from Settings; the app does not load it.</li>
         <li><span class="host">platform.openai.com</span> — The page where you create your own OpenAI API key. The welcome screen and the OpenAI card in Settings hand the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
         <li><span class="host">console.anthropic.com</span> — The page where you create your own Anthropic API key. The Anthropic card in Settings hands the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
+        <li><span class="host">aistudio.google.com</span> — The page where you create your own Google Gemini API key. The Google Gemini card in Settings hands the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
+        <li><span class="host">console.mistral.ai</span> — The page where you create your own Mistral API key. The Mistral card in Settings hands the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
+        <li><span class="host">console.x.ai</span> — The page where you create your own xAI API key. The xAI Grok card in Settings hands the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
         <li><span class="host">www.linkedin.com</span> — A keyless search link for LinkedIn, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">uk.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.totaljobs.com</span> — A keyless search link for Totaljobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
