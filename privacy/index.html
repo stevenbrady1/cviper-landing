@@ -38,16 +38,17 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   17194a612925fc439e90a88030533918a8040afc   (on main)
-                     "chore(release): bump the app version to 0.7.0 and
-                      cut the changelog"
-                     The version line only ("For CViper Light 0.7.0").
-                     The host registry and the storage locations are
-                     unchanged.
+      last changed   01a3504f899c37d952afdf2505fe312c7f4bca62   (on main)
+                     "fix(privacy): list the free-feed choice among what
+                      the app keeps (L-220)"
+                     The browser-storage line now names "which free job
+                     feeds you ticked" (kept since 0.8.0, L-219). Before
+                     it, 84fbe775 moved the version line to 0.8.0. The
+                     host registry is unchanged.
       transcribed    from cviper-light at
-                     17194a612925fc439e90a88030533918a8040afc (2026-10-08)
-      sha256         98c3de162f6dbe5ea7e0cad67796ad3374915d614ff9a3cb13e59bc0041a0b8c
-      app version    CViper Light 0.7.0
+                     01a3504f899c37d952afdf2505fe312c7f4bca62 (2026-10-08)
+      sha256         009e4d695a506a7f909fc834cb68f2c97050a43a1a3ab34f176ab63c6d63bce1
+      app version    CViper Light 0.8.0
 
   The stamp says which version of the app this page describes. It is NOT what
   holds the page to the app - the drift check described next is, and it fails
@@ -165,7 +166,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <div class="eyebrow">CViper Light</div>
       <h1>Privacy policy</h1>
       <p class="lede">There is no account, no server of ours, and no analytics. Your CV, your saved jobs and your applications sit on your own device. We receive nothing.</p>
-      <p class="meta">For CViper Light 0.7.0. This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes and not otherwise. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
+      <p class="meta">For CViper Light 0.8.0. This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes and not otherwise. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
 
       <div class="callout">
         <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, or switched it on — and only the services listed on this page. Two things happen on their own: when the app starts it reads this app’s GitHub releases to see whether there is a newer version, unless you switch that off in Settings; and it asks this same computer whether Ollama is running, a request that never leaves it.</p>
@@ -181,7 +182,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><strong>Which job boards you enabled and how you ordered them</strong> — <span class="host">job-boards.json</span> in the same data folder.</li>
         <li><strong>Which AI providers you agreed to send your CV to</strong> — <span class="host">ai-provider-consent.json</span> in the same data folder.</li>
         <li><strong>Which job you were last tailoring for, so it can be offered back — its id only, no text</strong> — <span class="host">workflow.json</span> in the same data folder.</li>
-        <li><strong>Small conveniences: your last search, today’s request count, and that you have seen the introduction</strong> — this app’s own browser storage, which no other program reads.</li>
+        <li><strong>Small conveniences: your last search, which free job feeds you ticked, today’s request count, and that you have seen the introduction</strong> — this app’s own browser storage, which no other program reads.</li>
       </ul>
 
       <h2>Every address the app can contact</h2>
