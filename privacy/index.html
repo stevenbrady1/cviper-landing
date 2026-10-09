@@ -38,17 +38,19 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   8f6c5bbb173e6b214a413b31841038344aea4899   (on main)
-                     "fix(privacy): stop storing where a CV file came from
-                      (L-147)"
-                     The "Where each CV file came from on this computer"
-                     line is removed: the app no longer keeps a CV's file
-                     path, and clears the ones kept before. Takes effect
-                     in the next app release after 0.8.0. The host
-                     registry is unchanged.
+      last changed   27dd6d8eb708621d99dee94bb7fd0d45b5315126   (on main)
+                     "feat(settings): "Your own AI service" card, offered
+                      everywhere AI is (L-150, part 2b)"
+                     Adds the AI service a user can add at their own
+                     address (a described destination, like the advert
+                     page), the address kept with its key, and the model
+                     choice among the small conveniences. Before it,
+                     8f6c5bbb (L-147) removed the "Where each CV file came
+                     from on this computer" line. Both take effect in the
+                     next app release after 0.8.0.
       transcribed    from cviper-light at
-                     8f6c5bbb173e6b214a413b31841038344aea4899 (2026-10-09)
-      sha256         86b20febc340671160d402822a94a904cc8ad27b8deff99980e0ea4ab31c01e4
+                     8b73ee72d247e3e97d933b89aba9b8a01c67e647 (2026-10-09)
+      sha256         edb9c11a76384e3ea63608d8a8b6ebdc7032a6935aac6ca6aa7d09b63ae99db3
       app version    CViper Light 0.8.0
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -178,15 +180,15 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <ul>
         <li><strong>Your jobs, applications, CV text and every analysis</strong> — one database file, <span class="host">cviper.db</span>, in this app’s data folder for your user account.</li>
         <li><strong>Tailoring you have not saved yet: the advert, the draft CV, its review and the letter, for each job</strong> — the same database file, on this computer only — an export always leaves it out.</li>
-        <li><strong>Your API keys</strong> — this device’s credential store (the Keychain on an iPhone, iPad or Mac; Credential Manager on Windows; the Secret Service on Linux), one entry per key.</li>
+        <li><strong>Your API keys, and the address of an AI service you added, kept with its key</strong> — this device’s credential store (the Keychain on an iPhone, iPad or Mac; Credential Manager on Windows; the Secret Service on Linux), one entry per key.</li>
         <li><strong>Which job boards you enabled and how you ordered them</strong> — <span class="host">job-boards.json</span> in the same data folder.</li>
         <li><strong>Which AI providers you agreed to send your CV to</strong> — <span class="host">ai-provider-consent.json</span> in the same data folder.</li>
         <li><strong>Which job you were last tailoring for, so it can be offered back — its id only, no text</strong> — <span class="host">workflow.json</span> in the same data folder.</li>
-        <li><strong>Small conveniences: your last search, which free job feeds you ticked, today’s request count, and that you have seen the introduction</strong> — this app’s own browser storage, which no other program reads.</li>
+        <li><strong>Small conveniences: your last search, which free job feeds you ticked, which AI model each service uses, today’s request count, and that you have seen the introduction</strong> — this app’s own browser storage, which no other program reads.</li>
       </ul>
 
       <h2>Every address the app can contact</h2>
-      <p>This is not a summary. It is the exact set of addresses the code is allowed to name; a test fails the build if one is added without appearing here. Two things below have no fixed address — the advert page you choose, and Windows itself — so they are described instead of named.</p>
+      <p>This is not a summary. It is the exact set of addresses the code is allowed to name; a test fails the build if one is added without appearing here. Three things below have no fixed address — the advert page you choose, an AI service you add yourself, and Windows itself — so they are described instead of named.</p>
 
       <h3>Sent with your own key, when you ask</h3>
       <p>These carry a key you pasted into Settings, under an account that is yours. The bill, if there is one, is between you and that provider.</p>
@@ -199,6 +201,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><span class="host">openrouter.ai</span> — A CV analysis, or a pasted job advert, that you start, sent with your own OpenRouter key under your own OpenRouter account. OpenRouter passes the request on to the company that runs the model you use. Its key page is also opened in your browser from Settings; the app never loads that page.</li>
         <li><span class="host">api.adzuna.com</span> — A job search you start, sent with the free Adzuna key you registered yourself. Adzuna’s API requires both parts of that key — the app ID and the app key — as parameters in the web address, so they appear in Adzuna’s own request logs. The request also carries your search words and location, which is what a search is, and Adzuna sees your IP address, exactly as it would if you searched on its own site yourself.</li>
         <li><span class="host">www.reed.co.uk</span> — A job search you start, sent with the free Reed key you registered yourself, carrying your search words and location — Reed sees those and your IP address, exactly as it would if you searched on reed.co.uk yourself. Reed’s developer page is also opened in your browser from Settings, and so is a keyless search link for Reed from <span class="host">job-boards.json</span>; the app never loads either page.</li>
+        <li><strong>an AI service you add yourself in Settings, at the address you type there</strong> — Contacted only if you add one. A CV analysis, a tailoring, a pasted job advert, a follow-up or an interview pack that you start, after you agree, is sent to the address you typed, with the key you saved for it, if any. The address must start with https:// and be on the internet, unless you tick that the service runs on your own computer or network, and then it must be there instead. Its key is kept with that address and is never sent anywhere else. Settings also asks the service which models it offers. The app follows no links the service sends back.</li>
       </ul>
 
       <h3>Only when you press a button, with no key</h3>
