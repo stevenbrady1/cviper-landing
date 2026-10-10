@@ -38,19 +38,19 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   27dd6d8eb708621d99dee94bb7fd0d45b5315126   (on main)
-                     "feat(settings): "Your own AI service" card, offered
-                      everywhere AI is (L-150, part 2b)"
-                     Adds the AI service a user can add at their own
-                     address (a described destination, like the advert
-                     page), the address kept with its key, and the model
-                     choice among the small conveniences. Before it,
-                     8f6c5bbb (L-147) removed the "Where each CV file came
-                     from on this computer" line. Both take effect in the
-                     next app release after 0.8.0.
+      last changed   fa6a3c807732b87f30a84d7813b3a2038bae9158   (on main)
+                     "feat(db): one safety copy of the database before an
+                      update migrates it (L-227)"
+                     Adds the one safety copy (cviper.db.before-update),
+                     made just before an update changes how the data is
+                     stored; "Delete everything" removes it. Before it,
+                     27dd6d8e (L-150) added the AI service a user can add
+                     at their own address, and 8f6c5bbb (L-147) removed the
+                     CV file-path line. All take effect in the next app
+                     release after 0.8.0.
       transcribed    from cviper-light at
-                     8b73ee72d247e3e97d933b89aba9b8a01c67e647 (2026-10-09)
-      sha256         edb9c11a76384e3ea63608d8a8b6ebdc7032a6935aac6ca6aa7d09b63ae99db3
+                     40c309ed7ae2f9deb8915d43e8745c2592545f32 (2026-10-10)
+      sha256         7c8bbf6391a2d4495cb441e0a844d84db1badb153c53f011d810f75d96bd7e09
       app version    CViper Light 0.8.0
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -180,6 +180,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <ul>
         <li><strong>Your jobs, applications, CV text and every analysis</strong> — one database file, <span class="host">cviper.db</span>, in this app’s data folder for your user account.</li>
         <li><strong>Tailoring you have not saved yet: the advert, the draft CV, its review and the letter, for each job</strong> — the same database file, on this computer only — an export always leaves it out.</li>
+        <li><strong>A safety copy of that database, made just before an update changes how it is stored, so an update that goes wrong cannot lose your data</strong> — cviper.db.before-update in the same data folder — only ever one, replaced at the next such update.</li>
         <li><strong>Your API keys, and the address of an AI service you added, kept with its key</strong> — this device’s credential store (the Keychain on an iPhone, iPad or Mac; Credential Manager on Windows; the Secret Service on Linux), one entry per key.</li>
         <li><strong>Which job boards you enabled and how you ordered them</strong> — <span class="host">job-boards.json</span> in the same data folder.</li>
         <li><strong>Which AI providers you agreed to send your CV to</strong> — <span class="host">ai-provider-consent.json</span> in the same data folder.</li>
