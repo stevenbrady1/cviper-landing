@@ -111,3 +111,63 @@ test('CNAME is a single clean line', () => {
   const cname = fs.readFileSync(path.join(root, 'CNAME'), 'utf8');
   expect(cname).toMatch(/^cviper\.ai\n?$/);
 });
+
+// ── Colour contrast (cviper-light L-229) ─────────────────────────────────────
+// Text must reach WCAG 1.4.3's 4.5:1 in BOTH schemes. Two pairs failed: the
+// faint grey on the page background in light mode (4.39:1) and white button
+// text on the light-blue accent in dark mode (2.59:1). The guard reads the
+// tokens out of each :root block, so changing a colour re-checks every pair.
+
+function luminance(hex: string): number {
+  const channels = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const [r, g, b] = channels.map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function contrast(a: string, b: string): number {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+/** Every `--name:#hex` in each `:root{...}` block, in order: light first, then dark. */
+function rootTokenSets(css: string): Array<Record<string, string>> {
+  return [...css.matchAll(/:root\s*\{([^}]*)\}/g)].map((block) =>
+    Object.fromEntries(
+      [...block[1].matchAll(/--([\w-]+)\s*:\s*(#[0-9a-fA-F]{6})/g)].map((m) => [m[1], m[2]]),
+    ),
+  );
+}
+
+/** Foreground token on background token, for every text pair the home page draws. */
+const TEXT_PAIRS: ReadonlyArray<readonly [string, string]> = [
+  ['ink', 'bg'],
+  ['ink-2', 'bg'],
+  ['ink-3', 'bg'],
+  ['ink-3', 'surface'],
+  ['accent', 'bg'],
+  ['on-accent', 'accent'],
+  ['on-accent', 'accent-hover'],
+  ['accent-ink', 'accent-soft'],
+];
+
+test('every text colour on the home page reaches 4.5:1 in light and dark', () => {
+  const css = styleBlocks(stripHtmlComments(fs.readFileSync(path.join(root, 'index.html'), 'utf8')));
+  const [light, dark] = rootTokenSets(css);
+  expect(light, 'a light :root block').toBeDefined();
+  expect(dark, 'a dark :root block').toBeDefined();
+  for (const [scheme, tokens] of [['light', light], ['dark', { ...light, ...dark }]] as const) {
+    for (const [fg, bg] of TEXT_PAIRS) {
+      expect(tokens[fg], `${scheme}: --${fg} is defined`).toBeDefined();
+      expect(tokens[bg], `${scheme}: --${bg} is defined`).toBeDefined();
+      const ratio = contrast(tokens[fg], tokens[bg]);
+      expect(ratio, `${scheme}: --${fg} on --${bg} is ${ratio.toFixed(2)}:1`).toBeGreaterThanOrEqual(4.5);
+    }
+  }
+});
+
+test('text on the accent uses the on-accent token, never a fixed white', () => {
+  // A literal #fff passes in light mode and fails in dark, which is how the
+  // dark-mode button shipped at 2.59:1.
+  const css = styleBlocks(stripHtmlComments(fs.readFileSync(path.join(root, 'index.html'), 'utf8')));
+  expect(css).not.toMatch(/(?<![-\w])color\s*:\s*#fff(fff)?\b/i);
+});

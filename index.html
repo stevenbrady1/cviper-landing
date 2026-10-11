@@ -47,14 +47,14 @@
 
 <style>
 :root{
-  --bg:#FBFBF8; --surface:#FFFFFF; --ink:#18212B; --ink-2:#4B5563; --ink-3:#6E7781;
-  --rule:#E1E4DE; --accent:#2B4C9B; --accent-hover:#213C7C; --accent-soft:#E8EDF8; --accent-ink:#1E3A78;
+  --bg:#FBFBF8; --surface:#FFFFFF; --ink:#18212B; --ink-2:#4B5563; --ink-3:#646C75;
+  --rule:#E1E4DE; --accent:#2B4C9B; --accent-hover:#213C7C; --accent-soft:#E8EDF8; --accent-ink:#1E3A78; --on-accent:#FFFFFF;
   --ok:#2F7A4E;
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#131719; --surface:#1B2125; --ink:#E8EBE6; --ink-2:#B5BDB8; --ink-3:#8B948F;
-    --rule:#2C3438; --accent:#7EA0EA; --accent-hover:#9BB5F0; --accent-soft:#1E2A44; --accent-ink:#B7CBF5;
+    --rule:#2C3438; --accent:#7EA0EA; --accent-hover:#9BB5F0; --accent-soft:#1E2A44; --accent-ink:#B7CBF5; --on-accent:#0F1A33;
     --ok:#6FC28F;
   }
 }
@@ -80,7 +80,7 @@ p{margin:0}
 .hero .lede{font-size:1.25rem;color:var(--ink-2);margin-top:18px;max-width:34ch}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;align-items:center}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:6px;font-weight:600;text-decoration:none;font-size:1rem;border:1.5px solid transparent}
-.btn.primary{background:var(--accent);color:#fff}
+.btn.primary{background:var(--accent);color:var(--on-accent)}
 .btn.primary:hover,.btn.primary:focus-visible{background:var(--accent-hover)}
 .btn.secondary{background:transparent;color:var(--accent);border-color:var(--accent)}
 .btn.secondary:hover,.btn.secondary:focus-visible{background:var(--accent-soft)}
@@ -106,7 +106,7 @@ section{padding-block:56px;border-top:1px solid var(--rule)}
 .tile p{color:var(--ink-2);margin-top:8px}
 .steps{counter-reset:step;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
 .step{position:relative;padding-top:44px}
-.step::before{counter-increment:step;content:counter(step);position:absolute;top:0;left:0;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font-family:inherit;font-weight:700;display:grid;place-items:center;font-size:.95rem}
+.step::before{counter-increment:step;content:counter(step);position:absolute;top:0;left:0;width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-family:inherit;font-weight:700;display:grid;place-items:center;font-size:.95rem}
 .step p{color:var(--ink-2);margin-top:8px}
 .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:32px}
 .feat h3{display:flex;gap:10px;align-items:baseline}
@@ -206,7 +206,7 @@ footer .paused{margin-top:16px;max-width:62ch}
       <div class="eyebrow">How it works</div>
       <h2>Three steps to your first CV check.</h2>
       <div class="steps">
-        <div class="step"><h3>Install CViper Light</h3><p>From the Microsoft Store once it's live. It opens straight into a short welcome.</p></div>
+        <div class="step"><h3>Install CViper Light</h3><p>Download the Windows installer from GitHub Releases — a Microsoft Store listing is on its way. It opens straight into a short welcome.</p></div>
         <div class="step"><h3>Add your AI key</h3><p>Paste a key from the provider you choose, or point the app at a model running on your PC. The welcome screen shows where to get a key and what a check typically costs.</p></div>
         <div class="step"><h3>Drop in your CV and a job</h3><p>Paste the job advert or its link. You get a match score, the skills you match, the ones you are missing, and what to change first.</p></div>
       </div>
