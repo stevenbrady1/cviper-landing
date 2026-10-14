@@ -127,6 +127,53 @@ test.describe('Windows warning page', () => {
   });
 });
 
+// No page estimates what AI use costs (cviper-light L-249). The provider sets
+// the price and bills the visitor's own account; we cannot know it, so no page
+// may say "a few pence", "typically …", or put an amount next to a check. Reads
+// the whole rendered text — closed <details> answers included, since
+// textContent ignores visibility — plus every meta content, which is what a
+// shared link's preview shows.
+const COST_ESTIMATE =
+  /\bpence\b|\bpenny\b|\bpennies\b|\bcosts? (?:about|around|roughly|only|just|a few)\b|\btypical(?:ly)?\b[^.]{0,60}\bcosts?\b|\bcosts?\b[^.]{0,40}\btypical(?:ly)?\b|[£$€]\s?\d/i;
+
+async function renderedCopy(page: Page): Promise<string> {
+  const body = (await page.locator('body').textContent()) ?? '';
+  const metas = await page.locator('meta[content]').evaluateAll((els) =>
+    els.map((el) => el.getAttribute('content') ?? '')
+  );
+  return [body, ...metas].join(' ').replace(/\s+/g, ' ');
+}
+
+test.describe('no AI cost estimates (L-249)', () => {
+  test('the guard catches the shapes it exists for, and passes honest copy', () => {
+    for (const bad of [
+      'a typical check costs a few pence, paid to them',
+      'typically a few pence for a CV check',
+      'The welcome screen shows what a check typically costs.',
+      'about £0.02 per check',
+      'it costs about nothing',
+    ]) {
+      expect(COST_ESTIMATE.test(bad), `must catch: ${bad}`).toBe(true);
+    }
+    for (const good of [
+      'they bill your own account at their own rates',
+      'the provider bills your own account directly, at their published rates',
+      'CViper takes no cut.',
+      'run a model on your own PC for free',
+    ]) {
+      expect(COST_ESTIMATE.test(good), `must pass: ${good}`).toBe(false);
+    }
+  });
+
+  for (const url of ['/', '/privacy/', '/windows-warning/']) {
+    test(`${url} says nothing about what an AI check costs`, async ({ page }) => {
+      await page.goto(url);
+      const match = (await renderedCopy(page)).match(COST_ESTIMATE);
+      expect(match?.[0] ?? null, `${url} estimates a cost near: "${match?.input.slice(Math.max(0, (match?.index ?? 0) - 60), (match?.index ?? 0) + 60)}"`).toBeNull();
+    });
+  }
+});
+
 test.describe('published URLs that must keep working', () => {
   // The app's About screen and both store-listing documents publish these
   // exact URLs; each file's own comment says why it must not 404.
