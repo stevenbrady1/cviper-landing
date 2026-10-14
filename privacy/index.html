@@ -38,16 +38,17 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   ec069c9483be055794ba8007121617ee9c38e50a   (on main)
-                     "feat: the Ollama hint says what to do in plain words
-                      and links to the download page (L-240)"
-                     Adds ollama.com as a page the app opens in your
-                     browser. It takes effect in the next app release
-                     after 0.9.0. Before it, dad382ce (L-230) changed the
-                     version line to 0.9.0.
+      last changed   9638d5a76f8a406e317e5b877e91c686a1c68b7a   (on main)
+                     "fix: privacy copy says what is not sent and to whom,
+                      and the guard forbids the old shapes (L-233)"
+                     Rewords the short version: we receive nothing from the
+                     app itself, but an app store or GitHub may show us
+                     download totals. Before it, ec069c94 (L-240) added
+                     ollama.com as a page the app opens in your browser.
+                     Both take effect in the next app release after 0.9.0.
       transcribed    from cviper-light at
-                     6df5ba74596b1e89dc2feb67dbdda0c62f230bc6 (2026-10-14)
-      sha256         37534a140a23f47ae5b41bc464d71eee0e090e4c51cd27041cc0e5c85492e253
+                     5394d3b4103ebfd27b032c2cae262dfe436b6d9f (2026-10-14)
+      sha256         abe6ed40b91b08b6a3152988aef8e5b055b3e30977f8528ddbd7bb730eeb081d
       app version    CViper Light 0.9.0
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -170,7 +171,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
 
       <div class="callout">
         <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, or switched it on — and only the services listed on this page. Two things happen on their own: when the app starts it reads this app’s GitHub releases to see whether there is a newer version, unless you switch that off in Settings; and it asks this same computer whether Ollama is running, a request that never leaves it.</p>
-        <p>We — the people who make CViper Light — receive nothing from it. Not your CV, not your searches, not your keys, not whether you use it at all. The one address on this page that is ours, cviper.ai, is only ever opened in your own browser when you tap a line that names it; the app never contacts it, and what that site sees is what your browser shows it.</p>
+        <p>We — the people who make CViper Light — receive nothing from the app itself. Not your CV, not your searches, not your keys. The places that hand it out — an app store, or GitHub, where the update check looks — may show us totals, such as how many times it was downloaded, without saying who you are. The one address on this page that is ours, cviper.ai, is only ever opened in your own browser when you tap a line that names it; the app never contacts it, and what that site sees is what your browser shows it.</p>
       </div>
 
       <h2>What the app keeps, and where</h2>
