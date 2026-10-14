@@ -60,6 +60,28 @@ test.describe('home page', () => {
     expect(box!.height, 'the download button must stay a comfortable tap target').toBeGreaterThanOrEqual(44);
   });
 
+  test('no in-page download link points at the release PAGE instead of the file', async ({ page }) => {
+    // Forbid-list (LESSON-033): /releases/latest on its own is the page with
+    // seven files to choose from, which is what the button stopped doing in
+    // L-245. The FAQ kept the old link for a while after the button changed.
+    // /releases/latest/download/<name> is the file itself and is allowed.
+    const hrefs = await page.locator('a[href]').evaluateAll((links) =>
+      links.map((a) => (a as HTMLAnchorElement).href)
+    );
+    const offenders = hrefs.filter((href) => /\/releases\/latest(?!\/download\/)/.test(href));
+    expect(offenders, 'links to the release page where the installer itself was meant').toEqual([]);
+  });
+
+  test('the FAQ download answer links the installer itself and the Windows-warning help', async ({ page }) => {
+    const answer = page.locator('details', { hasText: 'How do I download it?' });
+    await expect(answer.locator(`a[href="${DOWNLOAD_LATEST}"]`)).toHaveCount(1);
+    await expect(answer.locator('a[href="/windows-warning/"]')).toHaveCount(1);
+  });
+
+  test('the note under the download button links the Windows-warning help', async ({ page }) => {
+    await expect(page.locator('.cta-note a[href="/windows-warning/"]')).toHaveCount(1);
+  });
+
   test('privacy is reachable without JavaScript: real links in nav and footer', async ({ page }) => {
     await expect(page.locator('nav a[href="/privacy/"]')).toHaveCount(1);
     await expect(page.locator('footer a[href="/privacy/"]')).toHaveCount(1);
@@ -79,6 +101,29 @@ test.describe('privacy page', () => {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Privacy policy');
     await expectLeftGutter(page, 'h1');
     await expectNoSidewaysScroll(page);
+  });
+});
+
+test.describe('Windows warning page', () => {
+  test('renders inside its gutter, with no sideways scroll', async ({ page }) => {
+    await page.goto('/windows-warning/');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Getting past the Windows warning');
+    await expectLeftGutter(page, 'h1');
+    await expectNoSidewaysScroll(page);
+  });
+
+  test('its download link is the installer itself, by the name that never changes', async ({ page }) => {
+    await page.goto('/windows-warning/');
+    await expect(page.locator(`main a[href="${DOWNLOAD_LATEST}"]`).first()).toBeVisible();
+    const hrefs = await page.locator('a[href]').evaluateAll((links) =>
+      links.map((a) => (a as HTMLAnchorElement).href)
+    );
+    expect(hrefs.filter((href) => /\/releases\/latest(?!\/download\/)/.test(href))).toEqual([]);
+  });
+
+  test('it shows how to check the file with Get-FileHash', async ({ page }) => {
+    await page.goto('/windows-warning/');
+    await expect(page.locator('code', { hasText: `Get-FileHash .\\${STABLE_INSTALLER}` })).toHaveCount(1);
   });
 });
 

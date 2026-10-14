@@ -171,3 +171,39 @@ test('text on the accent uses the on-accent token, never a fixed white', () => {
   const css = styleBlocks(stripHtmlComments(fs.readFileSync(path.join(root, 'index.html'), 'utf8')));
   expect(css).not.toMatch(/(?<![-\w])color\s*:\s*#fff(fff)?\b/i);
 });
+
+// ── Link previews and authorship (L-245) ─────────────────────────────────────
+// A share card reads og:image without a page around it, so a relative path or
+// a file that was never committed gives a blank preview with no error anywhere.
+
+function metaContent(html: string, attr: 'name' | 'property', key: string): string | null {
+  for (const tag of html.match(/<meta\b[^>]*>/gi) ?? []) {
+    const k = new RegExp(`\\b${attr}\\s*=\\s*["']${key.replace(/[.:]/g, '\\$&')}["']`, 'i');
+    if (!k.test(tag)) continue;
+    const c = /\bcontent\s*=\s*["']([^"']*)["']/i.exec(tag);
+    return c ? c[1] : '';
+  }
+  return null;
+}
+
+test('og:image is an absolute cviper.ai URL whose file is in this repository', () => {
+  const html = stripHtmlComments(fs.readFileSync(path.join(root, 'index.html'), 'utf8'));
+  const image = metaContent(html, 'property', 'og:image');
+  expect(image, 'index.html declares og:image').not.toBeNull();
+  expect(image!).toMatch(/^https:\/\/cviper\.ai\/[^?#]+\.png$/);
+  const file = path.join(root, new URL(image!).pathname);
+  expect(fs.existsSync(file), `${path.relative(root, file)} exists in the repo`).toBe(true);
+  expect(metaContent(html, 'property', 'og:image:width')).toBe('1200');
+  expect(metaContent(html, 'property', 'og:image:height')).toBe('630');
+  expect(metaContent(html, 'property', 'og:image:alt') ?? '').not.toBe('');
+  expect(metaContent(html, 'name', 'twitter:card')).toBe('summary_large_image');
+});
+
+test('the home page and the Windows-warning page name their author', () => {
+  for (const rel of ['index.html', path.join('windows-warning', 'index.html')]) {
+    const file = path.join(root, rel);
+    expect(fs.existsSync(file), `${rel} exists`).toBe(true);
+    const html = stripHtmlComments(fs.readFileSync(file, 'utf8'));
+    expect(metaContent(html, 'name', 'author'), `${rel}: author meta`).toBe('Steven Brady');
+  }
+});
