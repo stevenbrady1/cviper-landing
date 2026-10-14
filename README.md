@@ -69,7 +69,8 @@ this checks how they *render*. Three kinds of guard:
 
 - **Geometry** (`tests/pages.spec.ts`) — at 375, 768 and 1280px: no sideways
   scroll, the side gutter holds (the shorthand trap above, in rendered form),
-  the download button points at `releases/latest` and stays a 44px tap
+  the download button points at
+  `releases/latest/download/CViper-Light-Windows-x64.exe` and stays a 44px tap
   target, and the published URLs (`/light`, `/light/privacy`, `?tab=privacy`)
   keep forwarding.
 - **Screenshots** (`tests/screenshots.spec.ts`) — home and privacy, light and

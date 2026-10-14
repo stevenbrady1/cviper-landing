@@ -11,6 +11,13 @@ import { test, expect, type Page } from '@playwright/test';
 
 const REPO = 'https://github.com/stevenbrady1/cviper-light';
 const RELEASES_LATEST = `${REPO}/releases/latest`;
+// The one installer name the cviper-light Release workflow puts on every
+// release (its `stable-download` job, held by stable-download-name.contract.test.ts
+// over there). /releases/latest/download/<name> serves that file from the
+// newest published release, so the button downloads in one click and still
+// never carries a version number (L-245).
+const STABLE_INSTALLER = 'CViper-Light-Windows-x64.exe';
+const DOWNLOAD_LATEST = `${RELEASES_LATEST}/download/${STABLE_INSTALLER}`;
 
 async function expectNoSidewaysScroll(page: Page) {
   const doc = await page.evaluate(() => ({
@@ -43,12 +50,12 @@ test.describe('home page', () => {
     await expectNoSidewaysScroll(page);
   });
 
-  test('the primary button downloads the latest published release', async ({ page }) => {
+  test('the primary button downloads the installer itself, from the latest published release', async ({ page }) => {
     const cta = page.getByRole('link', { name: /download cviper light for windows/i });
     await expect(cta).toBeVisible();
-    // /releases/latest resolves to the newest published, non-draft release,
-    // so the page never carries a version number that can go stale.
-    await expect(cta).toHaveAttribute('href', RELEASES_LATEST);
+    // Not the release PAGE: that left visitors to pick one file out of seven
+    // (L-245). The installer, by the name that never changes.
+    await expect(cta).toHaveAttribute('href', DOWNLOAD_LATEST);
     const box = await cta.boundingBox();
     expect(box!.height, 'the download button must stay a comfortable tap target').toBeGreaterThanOrEqual(44);
   });

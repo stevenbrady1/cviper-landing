@@ -158,8 +158,8 @@ footer .paused{margin-top:16px;max-width:62ch}
         <h1>Make every application count.</h1>
         <p class="lede">CViper Light reads your CV against the job you want and tells you exactly what to change — on your own computer, with nothing to sign up for.</p>
         <div class="cta">
-          <!-- /releases/latest always resolves to the newest published, non-draft release, so this page never has to carry a version number. The Microsoft Store listing is still pending (L-117/L-119); swap the primary link to the Store URL when it is live. -->
-          <a class="btn primary" href="https://github.com/stevenbrady1/cviper-light/releases/latest" aria-label="Download CViper Light for Windows from GitHub Releases">
+          <!-- /releases/latest/download/<name> serves that file from the newest published, non-draft release, so this page never has to carry a version number. CViper-Light-Windows-x64.exe is the copy of the setup installer the cviper-light Release workflow adds to every release (its stable-download job, L-245); this button used to open the release page instead. The Microsoft Store listing is still pending (L-117/L-119); swap the primary link to the Store URL when it is live. -->
+          <a class="btn primary" href="https://github.com/stevenbrady1/cviper-light/releases/latest/download/CViper-Light-Windows-x64.exe" aria-label="Download CViper Light for Windows from GitHub Releases">
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/></svg>
             Download for Windows
           </a>
