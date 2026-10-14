@@ -20,6 +20,7 @@ test.skip(
 const pages = [
   { path: '/', slug: 'home' },
   { path: '/privacy/', slug: 'privacy' },
+  { path: '/windows-warning/', slug: 'windows-warning' },
 ] as const;
 
 const schemes = ['light', 'dark'] as const;

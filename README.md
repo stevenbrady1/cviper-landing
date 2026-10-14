@@ -15,6 +15,14 @@ application is paused.
   `dataLocations.ts`). **Refresh this page whenever that registry changes** —
   nothing links the two repositories, so the drift would be silent. The full
   provenance and refresh trigger are in a comment at the top of the file.
+- `windows-warning/index.html` — how to keep the download, get past
+  SmartScreen and check the file's SHA-256, served at `/windows-warning/`.
+  Its claims (the installer is not Authenticode-signed) were checked against
+  `cviper-light` main; a comment at the top says what to re-check if the
+  installer is ever code-signed or ships through the Microsoft Store.
+- `og-image.png` — the 1200x630 link-preview card. A placeholder built from the
+  site's own colours, logo and headline; replace it with a real app screenshot
+  (L-244), keeping the size and the absolute `og:image` URL.
 - `light/index.html` — a redirect to `/`, because the app's About screen and
   its store listing both publish `cviper.ai/light` as the page about the app,
   and the home page already is that page. A forwarder rather than a second
@@ -73,7 +81,8 @@ this checks how they *render*. Three kinds of guard:
   `releases/latest/download/CViper-Light-Windows-x64.exe` and stays a 44px tap
   target, and the published URLs (`/light`, `/light/privacy`, `?tab=privacy`)
   keep forwarding.
-- **Screenshots** (`tests/screenshots.spec.ts`) — home and privacy, light and
+- **Screenshots** (`tests/screenshots.spec.ts`) — home, privacy and the
+  Windows-warning page, light and
   dark, all three widths, compared pixel-for-pixel against baselines in
   `tests/__screenshots__/`.
 - **Source guards** (`tests/source-guards.spec.ts`) — no page loads anything
