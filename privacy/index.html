@@ -38,18 +38,16 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   dad382ce7b2913c95ec8b6d0d0b94660c4fb2ace   (on main)
-                     "chore(release): bump the app version to 0.9.0 and cut
-                      the changelog (L-230)"
-                     Changes only the version line, 0.8.0 to 0.9.0. Before
-                     it, fa6a3c80 (L-227) added the one safety copy
-                     (cviper.db.before-update), 27dd6d8e (L-150) added the
-                     AI service a user can add at their own address, and
-                     8f6c5bbb (L-147) removed the CV file-path line. All
-                     ship in 0.9.0.
+      last changed   ec069c9483be055794ba8007121617ee9c38e50a   (on main)
+                     "feat: the Ollama hint says what to do in plain words
+                      and links to the download page (L-240)"
+                     Adds ollama.com as a page the app opens in your
+                     browser. It takes effect in the next app release
+                     after 0.9.0. Before it, dad382ce (L-230) changed the
+                     version line to 0.9.0.
       transcribed    from cviper-light at
-                     fc7a448652e14721ac3a565fa742210835023c0a (2026-10-14)
-      sha256         0da61dea1eb7237d0bbfea840a878db919ffb55416061d90305c7f54adc5f9e3
+                     6df5ba74596b1e89dc2feb67dbdda0c62f230bc6 (2026-10-14)
+      sha256         37534a140a23f47ae5b41bc464d71eee0e090e4c51cd27041cc0e5c85492e253
       app version    CViper Light 0.9.0
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -222,6 +220,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><span class="host">aistudio.google.com</span> — The page where you create your own Google Gemini API key. The Google Gemini card in Settings hands the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
         <li><span class="host">console.mistral.ai</span> — The page where you create your own Mistral API key. The Mistral card in Settings hands the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
         <li><span class="host">console.x.ai</span> — The page where you create your own xAI API key. The xAI Grok card in Settings hands the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
+        <li><span class="host">ollama.com</span> — Ollama’s download page. When Ollama is running on your computer but has no model that can chat, the CV check, the tailor screen and the welcome screen offer this link, which hands the address to your browser when you tap it; the app never loads the page, and nothing is added to the link.</li>
         <li><span class="host">www.linkedin.com</span> — A keyless search link for LinkedIn, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">uk.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.totaljobs.com</span> — A keyless search link for Totaljobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
