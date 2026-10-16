@@ -20,6 +20,11 @@ application is paused.
   Its claims (the installer is not Authenticode-signed) were checked against
   `cviper-light` main; a comment at the top says what to re-check if the
   installer is ever code-signed or ships through the Microsoft Store.
+- `terms/index.html` — the terms of use, served at `/terms/` (cviper-light
+  L-232). Plain-English consumer terms written to match what the app does: free,
+  MIT-licensed, local-first, AI output to be checked before sending, England and
+  Wales law. Not lawyer-reviewed; a comment at the top says when to rewrite it.
+  Linked from every page's footer.
 - `og-image.png` — the 1200x630 link-preview card. A placeholder built from the
   site's own colours, logo and headline; replace it with a real app screenshot
   (L-244), keeping the size and the absolute `og:image` URL.
