@@ -87,6 +87,10 @@ test.describe('home page', () => {
     await expect(page.locator('footer a[href="/privacy/"]')).toHaveCount(1);
   });
 
+  test('terms of use are reachable from the footer (L-232)', async ({ page }) => {
+    await expect(page.locator('footer a[href="/terms/"]')).toHaveCount(1);
+  });
+
   test('the old app link ?tab=privacy forwards to the policy', async ({ page }) => {
     // CViper Light builds shipped CVIPER_PRIVACY_URL = 'https://cviper.ai/?tab=privacy'.
     await page.goto('/?tab=privacy');
@@ -102,6 +106,58 @@ test.describe('privacy page', () => {
     await expectLeftGutter(page, 'h1');
     await expectNoSidewaysScroll(page);
   });
+});
+
+test.describe('terms of use page (L-232)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/terms/');
+  });
+
+  test('renders inside its gutter, with no sideways scroll', async ({ page }) => {
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Terms of use');
+    await expectLeftGutter(page, 'h1');
+    await expectNoSidewaysScroll(page);
+  });
+
+  test('says AI output can be wrong and must be checked before it is sent', async ({ page }) => {
+    await expect(page.locator('main')).toContainText(/AI can get things wrong/i);
+    await expect(page.locator('main')).toContainText(/check (it|everything) before you send/i);
+  });
+
+  test('says it is not careers, legal or financial advice', async ({ page }) => {
+    await expect(page.locator('main')).toContainText(/not careers, legal or financial advice/i);
+  });
+
+  test('names the law that applies: England and Wales', async ({ page }) => {
+    await expect(page.locator('main')).toContainText(/laws of England and Wales/i);
+  });
+
+  test('carries a date, so a reader can tell which version they read', async ({ page }) => {
+    await expect(page.locator('main time[datetime]')).toHaveCount(1);
+    const dt = await page.locator('main time[datetime]').getAttribute('datetime');
+    expect(dt).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
+
+  test('links the privacy policy and the MIT licence', async ({ page }) => {
+    await expect(page.locator('main a[href="/privacy/"]')).not.toHaveCount(0);
+    await expect(page.locator('main a[href$="/LICENSE"]')).not.toHaveCount(0);
+  });
+
+  test('never promises the AI output is accurate (negative)', async ({ page }) => {
+    const text = (await page.locator('main').innerText()).toLowerCase();
+    for (const promise of ['guaranteed accurate', 'always accurate', 'error-free', 'will get you the job']) {
+      expect(text, `must not promise: ${promise}`).not.toContain(promise);
+    }
+  });
+});
+
+test.describe('every sub-page footer links the terms (L-232)', () => {
+  for (const url of ['/privacy/', '/windows-warning/', '/terms/']) {
+    test(`${url}`, async ({ page }) => {
+      await page.goto(url);
+      await expect(page.locator('footer a[href="/terms/"]')).toHaveCount(1);
+    });
+  }
 });
 
 test.describe('Windows warning page', () => {
@@ -165,7 +221,7 @@ test.describe('no AI cost estimates (L-249)', () => {
     }
   });
 
-  for (const url of ['/', '/privacy/', '/windows-warning/']) {
+  for (const url of ['/', '/privacy/', '/windows-warning/', '/terms/']) {
     test(`${url} says nothing about what an AI check costs`, async ({ page }) => {
       await page.goto(url);
       const match = (await renderedCopy(page)).match(COST_ESTIMATE);
