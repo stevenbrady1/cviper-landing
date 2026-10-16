@@ -6,12 +6,19 @@
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>CViper Light — Make every application count</title>
-<meta name="description" content="CViper Light shows you how your CV measures up to each job, and exactly what to change. Free Windows app. No account, your own AI key.">
+<meta name="description" content="CViper Light tracks your applications, shows how your CV measures up to each job, and finds new ones. Free Windows app, no account, and an AI key only if you want one.">
+<meta name="author" content="Steven Brady">
 <link rel="canonical" href="https://cviper.ai/">
 <meta property="og:title" content="CViper Light — Make every application count">
 <meta property="og:description" content="See how your CV measures up to each job, and exactly what to change. On your own computer. Free, private, no account.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cviper.ai/">
+<!-- A placeholder card made from the site's own colours, logo and headline. Replace with a real screenshot of the app once one exists (L-244); keep it 1200x630 and keep the URL absolute. -->
+<meta property="og:image" content="https://cviper.ai/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CViper Light logo with the headline: Make every application count. Free Windows app, no account, stored on your own PC.">
+<meta name="twitter:card" content="summary_large_image">
 
 <!--
   cviper.ai/?tab=privacy -> /privacy/
@@ -156,10 +163,10 @@ footer .paused{margin-top:16px;max-width:62ch}
       <div>
         <img src="logo.svg" alt="" class="hero-logo" width="56" height="56" decoding="async">
         <h1>Make every application count.</h1>
-        <p class="lede">CViper Light reads your CV against the job you want and tells you exactly what to change — on your own computer, with nothing to sign up for.</p>
+        <p class="lede">Track every application, see how your CV matches each job, and find new ones — free, on your own computer, with nothing to sign up for. An AI key is an optional extra for a deeper read.</p>
         <div class="cta">
-          <!-- /releases/latest always resolves to the newest published, non-draft release, so this page never has to carry a version number. The Microsoft Store listing is still pending (L-117/L-119); swap the primary link to the Store URL when it is live. -->
-          <a class="btn primary" href="https://github.com/stevenbrady1/cviper-light/releases/latest" aria-label="Download CViper Light for Windows from GitHub Releases">
+          <!-- /releases/latest/download/<name> serves that file from the newest published, non-draft release, so this page never has to carry a version number. CViper-Light-Windows-x64.exe is the copy of the setup installer the cviper-light Release workflow adds to every release (its stable-download job, L-245); this button used to open the release page instead. The Microsoft Store listing is still pending (L-117/L-119); swap the primary link to the Store URL when it is live. -->
+          <a class="btn primary" href="https://github.com/stevenbrady1/cviper-light/releases/latest/download/CViper-Light-Windows-x64.exe" aria-label="Download CViper Light for Windows from GitHub Releases">
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/></svg>
             Download for Windows
           </a>
@@ -168,7 +175,7 @@ footer .paused{margin-top:16px;max-width:62ch}
             View on GitHub
           </a>
         </div>
-        <p class="cta-note"><strong>Windows build available now.</strong> Free, open source, no account, and no server of ours behind it. The installer is not in the Microsoft Store yet, so Windows may show a SmartScreen warning the first time you run it — choose “More info”, then “Run anyway”. macOS and Linux are not offered for now.</p>
+        <p class="cta-note"><strong>Windows build available now.</strong> Free, open source, no account, and no server of ours behind it. The installer is not in the Microsoft Store yet, so Windows may show a SmartScreen warning the first time you run it — choose “More info”, then “Run anyway”. <a href="/windows-warning/">Step-by-step help with the warning</a>. macOS and Linux are not offered for now.</p>
       </div>
       <div class="demo" aria-label="Illustration: a CV with the lines that match the job highlighted">
         <div class="bar"><span>Your CV · checked against “Product Analyst, London”</span><span class="score">Match 87%</span></div>
@@ -192,11 +199,11 @@ footer .paused{margin-top:16px;max-width:62ch}
     <div class="wrap">
       <div class="eyebrow">Runs on your computer</div>
       <h2>Private by design.</h2>
-      <p class="sub">There is no CViper server. The app runs on your PC, talks directly to the AI you choose with your own key, and keeps everything else on your disk.</p>
+      <p class="sub">There is no CViper server. The app runs on your PC and keeps your data on your disk. If you add an AI, the app talks to the one you choose directly, with your own key.</p>
       <div class="grid3">
+        <div class="tile"><h3>Free from the first click</h3><p>The application tracker, the basic CV match and job search all work with no key and nothing set up. Want a deeper read? Add a key from the AI provider you choose — they bill your own account at their own rates — or run a model on your own PC for free.</p></div>
         <div class="tile"><h3>No account</h3><p>Nothing to register, no password to forget, no emails from us. Install it and start.</p></div>
-        <div class="tile"><h3>Nothing comes to us</h3><p>We have no server and no copy of your data. Your CV goes to the AI provider you choose — with your own key — or to a model running on your own PC, and nowhere else.</p></div>
-        <div class="tile"><h3>Your own AI key</h3><p>Bring a key from the AI provider you choose and pay them directly; a typical CV check costs a few pence. Or run a model on your own PC for free. Your key is stored in Windows' own credential store.</p></div>
+        <div class="tile"><h3>Nothing comes to us</h3><p>We have no server and no copy of your data. The basic match never sends your CV anywhere. If you choose an AI, your CV goes only to that provider — with your own key, kept in Windows' own credential store — or to a model running on your own PC.</p></div>
       </div>
     </div>
   </section>
@@ -207,7 +214,7 @@ footer .paused{margin-top:16px;max-width:62ch}
       <h2>Three steps to your first CV check.</h2>
       <div class="steps">
         <div class="step"><h3>Install CViper Light</h3><p>Download the Windows installer from GitHub Releases — a Microsoft Store listing is on its way. It opens straight into a short welcome.</p></div>
-        <div class="step"><h3>Add your AI key</h3><p>Paste a key from the provider you choose, or point the app at a model running on your PC. The welcome screen shows where to get a key and what a check typically costs.</p></div>
+        <div class="step"><h3>Add an AI key, if you want one</h3><p>Optional: the tracker, job search and the basic match work without one. For a fuller read, paste a key from the provider you choose, or point the app at a model running on your PC. The AI reading uses that provider's service.</p></div>
         <div class="step"><h3>Drop in your CV and a job</h3><p>Paste the job advert or its link. You get a match score, the skills you match, the ones you are missing, and what to change first.</p></div>
       </div>
     </div>
@@ -232,12 +239,12 @@ footer .paused{margin-top:16px;max-width:62ch}
       <div class="eyebrow">Questions</div>
       <h2>Before you download.</h2>
       <div class="faq">
-        <details><summary>Is it really free?</summary><p>Yes. The app is free and there is no paid tier. The only cost is what your AI provider charges for the calls you make with your own key — typically a few pence for a CV check — or nothing at all with a local model.</p></details>
-        <details><summary>Where do I get an AI key, and what does it cost?</summary><p>From the provider you choose, under their API keys page. Today the app has a key screen for OpenAI (<a href="https://platform.openai.com/api-keys">platform.openai.com/api-keys</a>) and for Anthropic (<a href="https://console.anthropic.com/settings/keys">console.anthropic.com/settings/keys</a>); both bill your own account, and a typical CV check costs a few pence with either. The app tests the key before it saves it, keeps it in your computer's credential store, and never shows it back. Prefer no key at all? Install Ollama and the app uses a model on your own PC for free.</p></details>
+        <details><summary>Is it really free?</summary><p>Yes. The app is free and there is no paid tier. Tracking your applications, the basic CV match and job search all work with no key and nothing set up. If you want an AI to read your CV properly, add your own key and the provider bills your own account directly, at their published rates — or run a model on your own PC for nothing. CViper takes no cut.</p></details>
+        <details><summary>Where do I get an AI key?</summary><p>From the provider you choose, under their API keys page. The app has a key card for six: OpenAI, Anthropic, Google Gemini, Mistral, xAI Grok and OpenRouter — each card links to that provider's key page. You can also point it at an AI service of your own. Each provider bills your own account at their published rates, and CViper takes no cut. The app tests the key before it saves it, keeps it in your computer's credential store, and never shows it back. Prefer no key at all? Install Ollama and the app uses a model on your own PC for free.</p></details>
         <details><summary>Is my CV safe?</summary><p>It stays on your computer until you ask for an AI reading of it. Then the text goes from your PC straight to the provider whose key you added, under that provider's API terms — not through us. We never see it. Pick a model running on your own PC instead and it does not leave at all.</p></details>
-        <details><summary>How do I download it?</summary><p>On Windows, get the installer from <a href="https://github.com/stevenbrady1/cviper-light/releases/latest">GitHub Releases</a> — the file ending in “-setup.exe” is the simplest. It is not in the Microsoft Store yet, so Windows may show a SmartScreen warning the first time; choose “More info”, then “Run anyway”. Every build is made in public by the repo's own release workflow, so you can see exactly what produced the file you are installing. macOS and Linux are not offered for now.</p></details>
+        <details><summary>How do I download it?</summary><p>On Windows, press the Download button at the top of this page, or <a href="https://github.com/stevenbrady1/cviper-light/releases/latest/download/CViper-Light-Windows-x64.exe">download the installer here</a> — one file, CViper-Light-Windows-x64.exe, always the newest version. It is not in the Microsoft Store yet, so your browser and Windows may warn you the first time; <a href="/windows-warning/">here is how to get past the warning, and how to check the file</a>. Every build is made in public by the repo's own release workflow, so you can see exactly what produced the file you are installing, and the <a href="https://github.com/stevenbrady1/cviper-light/releases">releases page</a> lists every file with its SHA-256 checksum. macOS and Linux are not offered for now.</p></details>
         <details><summary>Does it make things up?</summary><p>It is designed not to. It reads your CV and tells you how it compares with the advert — it does not write CV content for you, and it does not add skills or jobs you did not give it. Always read the result before you act on it.</p></details>
-        <details><summary>Who built this?</summary><p>One person — a product manager with years in London banking and finance hiring — as a side project. It is maintained in spare time; questions and bugs go through <a href="https://github.com/stevenbrady1/cviper-light/issues">GitHub Issues</a>.</p></details>
+        <details><summary>Who built this?</summary><p>One person, Steven Brady — a product manager with years in London banking and finance hiring — as a side project. It is maintained in spare time; questions and bugs go through <a href="https://github.com/stevenbrady1/cviper-light/issues">GitHub Issues</a>.</p></details>
       </div>
       <div class="privacy">
         <p><strong>Privacy, in one paragraph.</strong> CViper Light runs on your computer. We have no server, no accounts, and no copy of your data. Your CV, a pasted advert and your own AI key only ever go to the provider you choose, or to a model running on your own PC. Your job-board keys go only to Adzuna or Reed, and only when you search. This website sets no cookies. <a href="/privacy/">Read the full privacy policy</a>.</p>
@@ -250,7 +257,7 @@ footer .paused{margin-top:16px;max-width:62ch}
   <div class="wrap">
     <div class="row">
       <span>© 2026 CViper · Made in the UK</span>
-      <span><a href="/privacy/">Privacy</a> · <a href="https://github.com/stevenbrady1/cviper-light">GitHub</a> · <a href="https://github.com/stevenbrady1/cviper-light/issues">Report a problem</a> · <a href="https://github.com/stevenbrady1/cviper-light/releases">Releases</a></span>
+      <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="https://github.com/stevenbrady1/cviper-light">GitHub</a> · <a href="https://github.com/stevenbrady1/cviper-light/issues">Report a problem</a> · <a href="https://github.com/stevenbrady1/cviper-light/releases">Releases</a></span>
     </div>
     <p class="paused">Looking for the online version of CViper? It's paused while we focus on the desktop app. Star the GitHub repo to hear if it returns.</p>
   </div>

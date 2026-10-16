@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Getting past the Windows warning — CViper Light</title>
+<meta name="description" content="Why your browser and Windows may warn you about the CViper Light installer, how to keep and run it, and how to check the file is the one we published.">
+<meta name="author" content="Steven Brady">
+<link rel="canonical" href="https://cviper.ai/windows-warning/">
+<meta property="og:title" content="Getting past the Windows warning — CViper Light">
+<meta property="og:description" content="Why Windows may warn you about the CViper Light installer, and how to check the file.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cviper.ai/windows-warning/">
+
+<!--
+  WHAT THIS PAGE MAY CLAIM (L-245)
+
+  Checked against stevenbrady1/cviper-light main on 2026-10-14:
+
+  - The setup installer is NOT Authenticode-signed. apps/light/src-tauri/
+    tauri.conf.json has no bundle.windows signing settings, and
+    .github/workflows/release.yml has no Windows code-signing step. Its `sign`
+    job signs the UPDATER bundles with the minisign key described in
+    apps/light/src-tauri/RELEASE-SIGNING.md; that signature is read by the app's
+    own updater and means nothing to Windows. The `stable-download` job copies
+    the setup installer to CViper-Light-Windows-x64.exe and calls the copy
+    "unsigned" in RELEASE-SIGNING.md.
+  - GitHub shows a sha256 digest next to every file on a release page; the
+    stable copy and the versioned -setup.exe have the same digest, because one
+    is a byte copy of the other.
+
+  If the installer is ever code-signed, or ships through the Microsoft Store,
+  this page is out of date: rewrite it rather than leaving the warning advice
+  in place. No screenshots of Windows dialogs on purpose — the wording moves
+  between Windows and browser versions, and an old picture misleads.
+
+  No external requests, like every page on this site.
+-->
+
+<style>
+:root{
+  --bg:#FBFBF8; --surface:#FFFFFF; --ink:#18212B; --ink-2:#4B5563; --ink-3:#646C75;
+  --rule:#E1E4DE; --accent:#2B4C9B; --accent-hover:#213C7C; --accent-soft:#E8EDF8; --accent-ink:#1E3A78;
+  --ok:#2F7A4E;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#131719; --surface:#1B2125; --ink:#E8EBE6; --ink-2:#B5BDB8; --ink-3:#8B948F;
+    --rule:#2C3438; --accent:#7EA0EA; --accent-hover:#9BB5F0; --accent-soft:#1E2A44; --accent-ink:#B7CBF5;
+    --ok:#6FC28F;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.55}
+a{color:var(--accent);overflow-wrap:anywhere}
+h1,h2,h3{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.015em;text-wrap:balance;line-height:1.15;margin:0;font-weight:700}
+h1{font-size:clamp(2rem,5vw,3rem);letter-spacing:-.01em}
+h2{font-size:clamp(1.35rem,3vw,1.75rem)}
+h3{font-size:1.05rem;font-weight:700}
+p{margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:20px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding-block:18px;gap:16px;flex-wrap:wrap}
+.brand{font-family:inherit;font-weight:700;font-size:1.25rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand img{height:28px;width:28px;display:block}
+.brand small{font-weight:500;color:var(--ink-3);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;padding-top:3px}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+.nav ul a{color:var(--ink-2);text-decoration:none;font-weight:600;font-size:.95rem}
+.nav ul a:hover,.nav ul a:focus-visible{color:var(--accent)}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px}
+/* The document column. Longhand padding only — the `padding` shorthand here
+   resets the .wrap gutters and pins text to the viewport edge on mobile. */
+.doc{max-width:70ch;padding-top:24px;padding-bottom:16px}
+.doc > p{color:var(--ink-2);margin-top:14px}
+.doc h2{margin-top:44px;padding-top:20px;border-top:1px solid var(--rule)}
+.doc h3{margin-top:28px;color:var(--ink)}
+.doc h3 + p{margin-top:8px}
+.doc ul,.doc ol{margin-top:14px;margin-bottom:0;padding-left:22px;color:var(--ink-2)}
+.doc li{margin-top:10px}
+.doc li strong{color:var(--ink)}
+.lede{font-size:1.15rem;color:var(--ink-2);margin-top:16px}
+.callout{background:var(--accent-soft);border-radius:10px;padding-block:24px;padding-inline:24px;margin-top:28px}
+.callout p{color:var(--accent-ink);max-width:64ch}
+.callout p + p{margin-top:12px}
+code{font-family:ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Consolas,monospace;font-size:.92em;background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding-block:1px;padding-inline:6px;color:var(--ink);overflow-wrap:anywhere}
+pre{margin-top:14px;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding-block:12px;padding-inline:14px;overflow-x:auto;max-width:100%}
+pre code{border:0;padding-inline:0;background:transparent}
+main{padding-bottom:40px}
+footer{padding-block:36px 48px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:.92rem;margin-top:40px}
+footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:var(--ink-2)}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:3px}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="/"><img src="/logo.svg" alt="" width="28" height="28" decoding="async"> CViper <small>Light</small></a>
+    <ul>
+      <li><a href="/#how">How it works</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+      <li><a href="/privacy/">Privacy</a></li>
+      <li><a href="https://github.com/stevenbrady1/cviper-light">GitHub</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="doc">
+      <div class="eyebrow">Installing CViper Light</div>
+      <h1>Getting past the Windows warning</h1>
+      <p class="lede">The first time you download and run CViper Light, your browser and then Windows may stop and ask whether you are sure. That is expected for a new app like this one. Here is why it happens, what to press, and how to check the file is the one we published.</p>
+
+      <div class="callout">
+        <p><strong>Why the warning appears.</strong> Windows trusts an installer more when it is signed with a paid code-signing certificate, or when it comes from the Microsoft Store. CViper Light is new, it is not in the Store yet, and its installer is not signed with one of those certificates. So Windows does not recognise who made it, and asks you to decide.</p>
+        <p>The warning is about how well known the file is, not something Windows found inside it. It does not mean the file is harmful — and it does not prove it is safe either. If you want to be sure, check the file as shown below before you run it.</p>
+      </div>
+
+      <h2>1. Keep the download</h2>
+      <p>Get the installer from the Download button on the <a href="/">home page</a>, or <a href="https://github.com/stevenbrady1/cviper-light/releases/latest/download/CViper-Light-Windows-x64.exe">download it here</a>. It is one file, <code>CViper-Light-Windows-x64.exe</code>.</p>
+      <p>Your browser may say the file “isn't commonly downloaded”, and may not save it until you say so. The exact words change between versions, but the steps are much the same:</p>
+      <ul>
+        <li><strong>Microsoft Edge</strong> — in the downloads list, hover over the file, open the “…” menu and choose “Keep”. If Edge asks again, choose “Show more”, then “Keep anyway”.</li>
+        <li><strong>Google Chrome</strong> — in the downloads list, choose “Keep” (or “Download suspicious file”) beside the file.</li>
+      </ul>
+
+      <h2>2. Run it past SmartScreen</h2>
+      <p>When you open the installer, a blue window titled “Windows protected your PC” may appear. It shows only a “Don't run” button at first.</p>
+      <ol>
+        <li>Choose <strong>More info</strong>. The window now shows the app's file name, and the publisher as “Unknown publisher” — that is the missing certificate described above.</li>
+        <li>Choose <strong>Run anyway</strong>. The CViper Light installer opens.</li>
+      </ol>
+      <p>If you would rather not see this at all, a Microsoft Store listing is on its way.</p>
+
+      <h2>3. Check the file, if you want to be sure</h2>
+      <p>Every file on a CViper Light release has a SHA-256 checksum: a long string of letters and numbers worked out from the file's exact contents. If one byte of the file were different, the checksum would be completely different.</p>
+      <ol>
+        <li>Open the <a href="https://github.com/stevenbrady1/cviper-light/releases">releases page</a>. The newest release is at the top. Under its files, find <code>CViper-Light-Windows-x64.exe</code>; the checksum shown beside it starts <code>sha256:</code>.</li>
+        <li>Open PowerShell in the folder you downloaded to (usually Downloads) and run:
+          <pre><code>Get-FileHash .\CViper-Light-Windows-x64.exe</code></pre>
+        </li>
+        <li>Compare the <strong>Hash</strong> it prints with the checksum on the release page, after the <code>sha256:</code>. PowerShell prints capital letters and GitHub prints small ones; that difference does not matter. Every other character must match. If they do not, do not run the file — delete it and download it again, and tell us on <a href="https://github.com/stevenbrady1/cviper-light/issues">GitHub Issues</a> if it still does not match.</li>
+      </ol>
+      <p>The file on the release page was built in public by the app's own release workflow, so you can see exactly what produced it. The source code is open too, on <a href="https://github.com/stevenbrady1/cviper-light">GitHub</a>.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span>© 2026 CViper · Made in the UK</span>
+      <span><a href="/">Home</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="https://github.com/stevenbrady1/cviper-light">GitHub</a> · <a href="https://github.com/stevenbrady1/cviper-light/issues">Report a problem</a></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

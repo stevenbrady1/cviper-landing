@@ -38,20 +38,18 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   fa6a3c807732b87f30a84d7813b3a2038bae9158   (on main)
-                     "feat(db): one safety copy of the database before an
-                      update migrates it (L-227)"
-                     Adds the one safety copy (cviper.db.before-update),
-                     made just before an update changes how the data is
-                     stored; "Delete everything" removes it. Before it,
-                     27dd6d8e (L-150) added the AI service a user can add
-                     at their own address, and 8f6c5bbb (L-147) removed the
-                     CV file-path line. All take effect in the next app
-                     release after 0.8.0.
+      last changed   94925c3588bb9ec7425267dd6d0c2022e0768c74   (on main)
+                     "chore(release): bump the app version to 0.10.3 and
+                      cut the changelog (L-255)"
+                     Changes the version line to 0.10.3. 0.10.3 is the
+                     first published release since 0.10.0, and ships the
+                     storage line's two additions: "which job boards Search
+                     opens" (L-219) and "that you were asked about keys left
+                     by an earlier install" (L-251).
       transcribed    from cviper-light at
-                     40c309ed7ae2f9deb8915d43e8745c2592545f32 (2026-10-10)
-      sha256         7c8bbf6391a2d4495cb441e0a844d84db1badb153c53f011d810f75d96bd7e09
-      app version    CViper Light 0.8.0
+                     327e983537e0d81064662029fd467add215a2170 (2026-10-16)
+      sha256         3a11b8665ef0eb4e79f7eac350ea2107b752c6b082705b80a7dc867ed4f68652
+      app version    CViper Light 0.10.3
 
   The stamp says which version of the app this page describes. It is NOT what
   holds the page to the app - the drift check described next is, and it fails
@@ -169,11 +167,11 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <div class="eyebrow">CViper Light</div>
       <h1>Privacy policy</h1>
       <p class="lede">There is no account, no server of ours, and no analytics. Your CV, your saved jobs and your applications sit on your own device. We receive nothing.</p>
-      <p class="meta">For CViper Light 0.8.0. This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes and not otherwise. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
+      <p class="meta">For CViper Light 0.10.3. This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes and not otherwise. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
 
       <div class="callout">
         <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, or switched it on — and only the services listed on this page. Two things happen on their own: when the app starts it reads this app’s GitHub releases to see whether there is a newer version, unless you switch that off in Settings; and it asks this same computer whether Ollama is running, a request that never leaves it.</p>
-        <p>We — the people who make CViper Light — receive nothing from it. Not your CV, not your searches, not your keys, not whether you use it at all. The one address on this page that is ours, cviper.ai, is only ever opened in your own browser when you tap a line that names it; the app never contacts it, and what that site sees is what your browser shows it.</p>
+        <p>We — the people who make CViper Light — receive nothing from the app itself. Not your CV, not your searches, not your keys. The places that hand it out — an app store, or GitHub, where the update check looks — may show us totals, such as how many times it was downloaded, without saying who you are. The one address on this page that is ours, cviper.ai, is only ever opened in your own browser when you tap a line that names it; the app never contacts it, and what that site sees is what your browser shows it.</p>
       </div>
 
       <h2>What the app keeps, and where</h2>
@@ -185,7 +183,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><strong>Which job boards you enabled and how you ordered them</strong> — <span class="host">job-boards.json</span> in the same data folder.</li>
         <li><strong>Which AI providers you agreed to send your CV to</strong> — <span class="host">ai-provider-consent.json</span> in the same data folder.</li>
         <li><strong>Which job you were last tailoring for, so it can be offered back — its id only, no text</strong> — <span class="host">workflow.json</span> in the same data folder.</li>
-        <li><strong>Small conveniences: your last search, which free job feeds you ticked, which AI model each service uses, today’s request count, and that you have seen the introduction</strong> — this app’s own browser storage, which no other program reads.</li>
+        <li><strong>Small conveniences: your last search, which free job feeds you ticked, which job boards Search opens, which AI model each service uses, today’s request count, that you have seen the introduction, and that you were asked about keys left by an earlier install</strong> — this app’s own browser storage, which no other program reads.</li>
       </ul>
 
       <h2>Every address the app can contact</h2>
@@ -223,6 +221,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><span class="host">aistudio.google.com</span> — The page where you create your own Google Gemini API key. The Google Gemini card in Settings hands the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
         <li><span class="host">console.mistral.ai</span> — The page where you create your own Mistral API key. The Mistral card in Settings hands the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
         <li><span class="host">console.x.ai</span> — The page where you create your own xAI API key. The xAI Grok card in Settings hands the address to your browser when you tap it; the app never loads it, and nothing is added to the link.</li>
+        <li><span class="host">ollama.com</span> — Ollama’s download page. When Ollama is running on your computer but has no model that can chat, the CV check, the tailor screen and the welcome screen offer this link, which hands the address to your browser when you tap it; the app never loads the page, and nothing is added to the link.</li>
         <li><span class="host">www.linkedin.com</span> — A keyless search link for LinkedIn, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">uk.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.totaljobs.com</span> — A keyless search link for Totaljobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
@@ -279,7 +278,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
   <div class="wrap">
     <div class="row">
       <span>© 2026 CViper · Made in the UK</span>
-      <span><a href="/">Home</a> · <a href="https://github.com/stevenbrady1/cviper-light">GitHub</a> · <a href="https://github.com/stevenbrady1/cviper-light/issues">Report a problem</a></span>
+      <span><a href="/">Home</a> · <a href="/terms/">Terms</a> · <a href="https://github.com/stevenbrady1/cviper-light">GitHub</a> · <a href="https://github.com/stevenbrady1/cviper-light/issues">Report a problem</a></span>
     </div>
   </div>
 </footer>

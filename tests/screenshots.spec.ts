@@ -20,6 +20,7 @@ test.skip(
 const pages = [
   { path: '/', slug: 'home' },
   { path: '/privacy/', slug: 'privacy' },
+  { path: '/windows-warning/', slug: 'windows-warning' },
 ] as const;
 
 const schemes = ['light', 'dark'] as const;
@@ -32,6 +33,15 @@ for (const { path, slug } of pages) {
       // The logo is the only non-inline resource; wait for it so a screenshot
       // never races the image decode.
       await page.waitForLoadState('load');
+      // One throwaway full-page capture first. In Chromium the FIRST full-page
+      // capture reflows the code chips (`cviper.db`, `api.openai.com`, ...):
+      // each moves a pixel, and a long page grows ~30px (privacy at 1280:
+      // 7218 -> 7250 on the runner). The page is steady from then on. Without
+      // this, toHaveScreenshot spends its 5s timeout on that first unsettled
+      // shot and fails on the slow, long pages (privacy, Visual check #80; and
+      // the same flake on #73). The real comparison below is unchanged: the
+      // settled page against the committed baseline.
+      await page.screenshot({ fullPage: true });
       await expect(page).toHaveScreenshot(`${slug}-${scheme}.png`, { fullPage: true });
     });
   }
