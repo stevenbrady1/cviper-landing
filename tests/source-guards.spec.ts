@@ -138,32 +138,48 @@ function rootTokenSets(css: string): Array<Record<string, string>> {
   );
 }
 
-/** Foreground token on background token, for every text pair the home page draws. */
-const TEXT_PAIRS: ReadonlyArray<readonly [string, string]> = [
-  ['ink', 'bg'],
-  ['ink-2', 'bg'],
-  ['ink-3', 'bg'],
-  ['ink-3', 'surface'],
-  ['accent', 'bg'],
-  ['on-accent', 'accent'],
-  ['on-accent', 'accent-hover'],
-  ['accent-ink', 'accent-soft'],
-];
+/**
+ * Foreground token on background token, for every text pair each page draws.
+ * The privacy page shares the home page's tokens and draws a subset of them;
+ * it was left at the old faint grey when the home page was fixed.
+ */
+const TEXT_PAIRS: Readonly<Record<string, ReadonlyArray<readonly [string, string]>>> = {
+  'index.html': [
+    ['ink', 'bg'],
+    ['ink-2', 'bg'],
+    ['ink-3', 'bg'],
+    ['ink-3', 'surface'],
+    ['accent', 'bg'],
+    ['on-accent', 'accent'],
+    ['on-accent', 'accent-hover'],
+    ['accent-ink', 'accent-soft'],
+  ],
+  'privacy/index.html': [
+    ['ink', 'bg'],
+    ['ink', 'surface'],
+    ['ink-2', 'bg'],
+    ['ink-3', 'bg'],
+    ['accent', 'bg'],
+    ['accent-ink', 'accent-soft'],
+  ],
+};
 
-test('every text colour on the home page reaches 4.5:1 in light and dark', () => {
-  const css = styleBlocks(stripHtmlComments(fs.readFileSync(path.join(root, 'index.html'), 'utf8')));
-  const [light, dark] = rootTokenSets(css);
-  expect(light, 'a light :root block').toBeDefined();
-  expect(dark, 'a dark :root block').toBeDefined();
-  for (const [scheme, tokens] of [['light', light], ['dark', { ...light, ...dark }]] as const) {
-    for (const [fg, bg] of TEXT_PAIRS) {
-      expect(tokens[fg], `${scheme}: --${fg} is defined`).toBeDefined();
-      expect(tokens[bg], `${scheme}: --${bg} is defined`).toBeDefined();
-      const ratio = contrast(tokens[fg], tokens[bg]);
-      expect(ratio, `${scheme}: --${fg} on --${bg} is ${ratio.toFixed(2)}:1`).toBeGreaterThanOrEqual(4.5);
+for (const [page, pairs] of Object.entries(TEXT_PAIRS)) {
+  test(`every text colour on ${page} reaches 4.5:1 in light and dark`, () => {
+    const css = styleBlocks(stripHtmlComments(fs.readFileSync(path.join(root, page), 'utf8')));
+    const [light, dark] = rootTokenSets(css);
+    expect(light, 'a light :root block').toBeDefined();
+    expect(dark, 'a dark :root block').toBeDefined();
+    for (const [scheme, tokens] of [['light', light], ['dark', { ...light, ...dark }]] as const) {
+      for (const [fg, bg] of pairs) {
+        expect(tokens[fg], `${scheme}: --${fg} is defined`).toBeDefined();
+        expect(tokens[bg], `${scheme}: --${bg} is defined`).toBeDefined();
+        const ratio = contrast(tokens[fg], tokens[bg]);
+        expect(ratio, `${scheme}: --${fg} on --${bg} is ${ratio.toFixed(2)}:1`).toBeGreaterThanOrEqual(4.5);
+      }
     }
-  }
-});
+  });
+}
 
 test('text on the accent uses the on-accent token, never a fixed white', () => {
   // A literal #fff passes in light mode and fails in dark, which is how the
