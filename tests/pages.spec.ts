@@ -143,6 +143,14 @@ test.describe('terms of use page (L-232)', () => {
     await expect(page.locator('main a[href$="/LICENSE"]')).not.toHaveCount(0);
   });
 
+  test('gives the privacy contact that actually receives mail (negative: never privacy@cviper.ai)', async ({ page }) => {
+    // cviper.ai has no mail records, so privacy@cviper.ai bounces. The owner
+    // chose cviperuk@gmail.com (16 Oct 2026), the same address the app's
+    // privacy policy names.
+    await expect(page.locator('main a[href="mailto:cviperuk@gmail.com"]')).toHaveCount(1);
+    expect(await page.locator('main').innerText()).not.toContain('privacy@cviper.ai');
+  });
+
   test('never promises the AI output is accurate (negative)', async ({ page }) => {
     const text = (await page.locator('main').innerText()).toLowerCase();
     for (const promise of ['guaranteed accurate', 'always accurate', 'error-free', 'will get you the job']) {
