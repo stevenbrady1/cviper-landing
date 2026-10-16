@@ -38,17 +38,15 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   94925c3588bb9ec7425267dd6d0c2022e0768c74   (on main)
-                     "chore(release): bump the app version to 0.10.3 and
-                      cut the changelog (L-255)"
-                     Changes the version line to 0.10.3. 0.10.3 is the
-                     first published release since 0.10.0, and ships the
-                     storage line's two additions: "which job boards Search
-                     opens" (L-219) and "that you were asked about keys left
-                     by an earlier install" (L-251).
+      last changed   2d92604ccc1279c9aedbcd134b1d2a6908071ebb   (on main)
+                     "Merge pull request #299" (L-239), on top of #297
+                     (L-231). L-231 adds the controller, private contact
+                     (cviperuk@gmail.com), lawful basis, rights and ICO,
+                     transfers, retention, age 16+ and a date; L-239 adds
+                     the Adzuna attribution link to the adzuna.co.uk line.
       transcribed    from cviper-light at
-                     327e983537e0d81064662029fd467add215a2170 (2026-10-16)
-      sha256         3a11b8665ef0eb4e79f7eac350ea2107b752c6b082705b80a7dc867ed4f68652
+                     2d92604ccc1279c9aedbcd134b1d2a6908071ebb (2026-10-16)
+      sha256         356c3213148a329b29fc19d9a5d2732a5e961afb84cc9d633383afbb646a0941
       app version    CViper Light 0.10.3
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -75,14 +73,15 @@
 
       python tools/check_privacy_drift.py
 
-  Two sections are NOT from the generated policy and are marked in the source
-  below, because the generated document does not cover them:
+  One section is NOT from the generated policy and is marked in the source
+  below, because the generated document does not cover it:
     * "Taking your data with you" - from the app repo's README.md
       ("Your data, and getting it out"), which documents the export/import.
-    * "This website" - about cviper.ai itself, which the app's policy has no
-      reason to describe.
-  The drift check only asks that the generated policy is fully present; extra
-  sections like those two are allowed, and are the only extra sections here.
+  "This website" was the second until L-231: the generated policy now has its
+  own "Our website" section, which replaced it here, including its wording
+  (the site "loads no analytics script"; the hosts "may show us traffic
+  totals"). The drift check only asks that the generated policy is fully
+  present; one extra section is allowed, and it is the only one here.
 
   ===========================================================================
   NO EXTERNAL REQUESTS. EVER.
@@ -167,7 +166,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <div class="eyebrow">CViper Light</div>
       <h1>Privacy policy</h1>
       <p class="lede">There is no account, no server of ours, and no analytics. Your CV, your saved jobs and your applications sit on your own device. We receive nothing.</p>
-      <p class="meta">For CViper Light 0.10.3. This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes and not otherwise. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
+      <p class="meta">For CViper Light 0.10.3. This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes. Last updated: 16 October 2026. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
 
       <div class="callout">
         <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, or switched it on — and only the services listed on this page. Two things happen on their own: when the app starts it reads this app’s GitHub releases to see whether there is a newer version, unless you switch that off in Settings; and it asks this same computer whether Ollama is running, a request that never leaves it.</p>
@@ -226,7 +225,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><span class="host">uk.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.totaljobs.com</span> — A keyless search link for Totaljobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.cv-library.co.uk</span> — A keyless search link for CV-Library, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
-        <li><span class="host">www.adzuna.co.uk</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.co.uk</span> — A keyless search link for Adzuna’s public search, from job-boards.json, and the word “Adzuna” on each Adzuna advert, which Adzuna’s API terms ask to link to their site. Pressing either hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.google.com</span> — A keyless search link for Google Jobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.jobserve.com</span> — A keyless search link for Jobserve, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page, and it never scrapes Jobserve.</li>
         <li><span class="host">cviper.ai</span> — This app's own website: its download page and the privacy policy, opened in your browser when you tap a line that names it. The app never contacts it, and nothing is added to the link.</li>
@@ -260,16 +259,24 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <p>Settings → Delete everything removes the database, every saved key and the preferences, and the app returns to its first-run state.</p>
       <p>Do that <em>before</em> uninstalling if you want the keys gone as well: on some systems the credential store keeps an app's entries after the app itself is removed.</p>
 
-      <!-- NOT from the generated policy: this site, which the app's policy has
-           no reason to describe. -->
-      <h2>This website</h2>
-      <p>cviper.ai sets no cookies, runs no analytics and makes no third-party requests. There is no font, script, image or tracker loaded from anywhere else — everything you are reading is served from this domain. Our host, GitHub Pages, keeps its own server logs of requests; we do not read them and cannot connect them to anything in the app.</p>
-
-      <h2>Children</h2>
-      <p>CViper Light is a job-application tool and is not directed at children under 13. It collects no data from anyone.</p>
-
+      <h2>Our website</h2>
+      <p>cviper.ai is served by GitHub Pages, and cviper.uk and www.cviper.uk are redirected to it by Cloudflare. The site sets no cookies and loads no analytics script. The app itself never contacts it; its pages open in your own browser when you tap a line that names them. Like any web host, GitHub and Cloudflare see your IP address and keep server logs of the requests they handle, under their own privacy policies, and may show us traffic totals. We do not use them to identify anyone, and they cannot be connected to anything in the app.</p>
+      <h2>Who is responsible</h2>
+      <p>CViper Light is made by Steven Brady, a sole trader in the United Kingdom. For the little personal data described here that we handle ourselves, he is the controller under UK data-protection law. You can reach him privately at <a href="mailto:cviperuk@gmail.com">cviperuk@gmail.com</a>.</p>
+      <h2>Our lawful basis</h2>
+      <p>The app sends us nothing, so there is nothing from the app for us to need a lawful basis for. What you keep in it stays on your own device, under your control. When you send a request to a service you chose, that service handles it under its own terms.</p>
+      <p>We handle personal data ourselves in one case: when you email <a href="mailto:cviperuk@gmail.com">cviperuk@gmail.com</a>, we read your message and reply to it. Under the UK GDPR we do that on the basis of legitimate interests — yours and ours, in answering what you asked — or, when you are using one of your rights below, because the law requires us to respond. The server logs kept by our website’s hosts rest on legitimate interests too: keeping a website working and secure.</p>
+      <h2>Your rights</h2>
+      <p>Under UK data-protection law you have the right to access the personal data we hold about you, to correct it, to delete it, to restrict or object to how we use it, and to have a copy in a portable form. The data the app keeps is on your own device, so you can see, export, change or delete it yourself at any time. For an email you sent us, write to <a href="mailto:cviperuk@gmail.com">cviperuk@gmail.com</a> and we will reply within one month. For what a service you chose received, ask that service: it is the one that holds it.</p>
+      <p>If you are unhappy with how we have handled your data, please tell us first so we can put it right. You also have the right to complain to the Information Commissioner’s Office (ICO), the UK’s data-protection regulator, at <a href="https://ico.org.uk/make-a-complaint/">ico.org.uk/make-a-complaint</a> or on 0303 123 1113.</p>
+      <h2>International transfers</h2>
+      <p>We transfer nothing, because the app sends nothing to us. If you choose an AI service or a job board, your request goes straight from your device to that service, which may be outside the UK — many are in the United States. That is your choice, made when you press the button, and the service handles what it receives under its own terms and safeguards. A program on your own computer, such as Ollama, keeps the request on that computer. GitHub and Cloudflare, who host our website, may keep their server logs outside the UK under their own safeguards.</p>
+      <h2>How long things are kept</h2>
+      <p>What the app keeps on your device stays there until you delete it. Settings → Delete everything removes all of it at once; we cannot delete it for you, because we never have it. A service you chose keeps what it received for as long as its own policy says. An email to <a href="mailto:cviperuk@gmail.com">cviperuk@gmail.com</a> is kept only for as long as we need it to answer you, and then deleted.</p>
+      <h2>Age</h2>
+      <p>CViper Light is a tool for finding work, meant for people aged 16 and over. The app sends us nothing, so we collect no data through it from anyone, of any age.</p>
       <h2>Questions</h2>
-      <p>Ask on the public issue tracker: <a href="https://github.com/stevenbrady1/cviper-light/issues">https://github.com/stevenbrady1/cviper-light/issues</a>. The source code is public under the MIT licence, so every statement on this page can be checked against it.</p>
+      <p>For anything about your own data, email <a href="mailto:cviperuk@gmail.com">cviperuk@gmail.com</a>. General questions about how the app works are welcome on the issue tracker, <a href="https://github.com/stevenbrady1/cviper-light/issues">https://github.com/stevenbrady1/cviper-light/issues</a>, but everything posted there is public, so please leave out anything personal. The source code is public under the MIT licence, so every statement about the app on this page can be checked against it.</p>
     </div>
   </div>
 </main>
