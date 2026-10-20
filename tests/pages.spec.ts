@@ -18,6 +18,9 @@ const RELEASES_LATEST = `${REPO}/releases/latest`;
 // never carries a version number (L-245).
 const STABLE_INSTALLER = 'CViper-Light-Windows-x64.exe';
 const DOWNLOAD_LATEST = `${RELEASES_LATEST}/download/${STABLE_INSTALLER}`;
+// The Mac disk image's stable name, written by the same job (L-261).
+const STABLE_MAC_IMAGE = 'CViper-Light-macOS.dmg';
+const DOWNLOAD_MAC_LATEST = `${RELEASES_LATEST}/download/${STABLE_MAC_IMAGE}`;
 
 async function expectNoSidewaysScroll(page: Page) {
   const doc = await page.evaluate(() => ({
@@ -60,6 +63,18 @@ test.describe('home page', () => {
     expect(box!.height, 'the download button must stay a comfortable tap target').toBeGreaterThanOrEqual(44);
   });
 
+  test('the Mac button downloads the disk image itself, by its stable name (L-261)', async ({ page }) => {
+    const cta = page.getByRole('link', { name: /download cviper light for mac/i });
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute('href', DOWNLOAD_MAC_LATEST);
+    const box = await cta.boundingBox();
+    expect(box!.height, 'the Mac button must stay a comfortable tap target').toBeGreaterThanOrEqual(44);
+  });
+
+  test('the page no longer says macOS is not offered', async ({ page }) => {
+    await expect(page.locator('body')).not.toContainText(/macOS and Linux are not offered/);
+  });
+
   test('no in-page download link points at the release PAGE instead of the file', async ({ page }) => {
     // Forbid-list (LESSON-033): /releases/latest on its own is the page with
     // seven files to choose from, which is what the button stopped doing in
@@ -75,6 +90,7 @@ test.describe('home page', () => {
   test('the FAQ download answer links the installer itself and the Windows-warning help', async ({ page }) => {
     const answer = page.locator('details', { hasText: 'How do I download it?' });
     await expect(answer.locator(`a[href="${DOWNLOAD_LATEST}"]`)).toHaveCount(1);
+    await expect(answer.locator(`a[href="${DOWNLOAD_MAC_LATEST}"]`)).toHaveCount(1);
     await expect(answer.locator('a[href="/windows-warning/"]')).toHaveCount(1);
   });
 
