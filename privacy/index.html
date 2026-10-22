@@ -38,18 +38,20 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   a04c6d478558ffd894391dd3b7adc800269aceb5   (on main)
-                     "fix(privacy): stop the policy naming the app version"
-                     (L-258, PR #319). The first line no longer names the
-                     app version, so a release alone no longer changes the
-                     policy. Earlier: L-257 (0.10.4 bump), #299 (L-239)
-                     and #297 (L-231) - controller, private contact
+      last changed   1675f61 on feat/workhub-board, cviper-light PR #334
+                     "docs(privacy): regenerate the policy for the tenth
+                     board's host" (L-262). One line added for
+                     www.jobs.service.gov.uk - GOV.UK Find a job, a keyless
+                     link opened in the user's browser - and the date moved
+                     to 22 October 2026. Earlier: L-258 (#319, no app
+                     version in the first line), L-257, #299 (L-239) and
+                     #297 (L-231) - controller, private contact
                      (cviperuk@gmail.com), lawful basis, rights and ICO,
                      transfers, retention, age 16+, a date, and the Adzuna
                      attribution link on the adzuna.co.uk line.
       transcribed    from cviper-light at
-                     a04c6d478558ffd894391dd3b7adc800269aceb5 (2026-10-19)
-      sha256         73ec783e78d5a97c838cf5c43b713d0671a47be0f12d1c2b39b0ea44fda15c94
+                     1675f61 (2026-10-22), ahead of its merge to main
+      sha256         66ed5bc0be597a8e56eb0a8628524c01cdf8574ea34b050150b727684b29fa71
       app version    none - the policy no longer names one (L-258)
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -169,7 +171,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <div class="eyebrow">CViper Light</div>
       <h1>Privacy policy</h1>
       <p class="lede">There is no account, no server of ours, and no analytics. Your CV, your saved jobs and your applications sit on your own device. We receive nothing.</p>
-      <p class="meta">This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes. Last updated: 16 October 2026. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
+      <p class="meta">This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes. Last updated: 22 October 2026. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
 
       <div class="callout">
         <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, or switched it on — and only the services listed on this page. Two things happen on their own: when the app starts it reads this app’s GitHub releases to see whether there is a newer version, unless you switch that off in Settings; and it asks this same computer whether Ollama is running, a request that never leaves it.</p>
@@ -231,6 +233,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><span class="host">www.adzuna.co.uk</span> — A keyless search link for Adzuna’s public search, from job-boards.json, and the word “Adzuna” on each Adzuna advert, which Adzuna’s API terms ask to link to their site. Pressing either hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.google.com</span> — A keyless search link for Google Jobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.jobserve.com</span> — A keyless search link for Jobserve, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page, and it never scrapes Jobserve.</li>
+        <li><span class="host">www.jobs.service.gov.uk</span> — A keyless search link for GOV.UK’s Find a job (the Work Hub service run by the Department for Work and Pensions), from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page, and it never scrapes it.</li>
         <li><span class="host">cviper.ai</span> — This app's own website: its download page and the privacy policy, opened in your browser when you tap a line that names it. The app never contacts it, and nothing is added to the link.</li>
       </ul>
 
