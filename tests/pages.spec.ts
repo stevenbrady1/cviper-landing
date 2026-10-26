@@ -71,6 +71,28 @@ test.describe('home page', () => {
     expect(box!.height, 'the Mac button must stay a comfortable tap target').toBeGreaterThanOrEqual(44);
   });
 
+  test('says the app tailors a CV and drafts a cover letter, which it does (since 0.10.0)', async ({ page }) => {
+    const features = page.locator('#what');
+    await expect(features).toContainText(/tailor/i);
+    await expect(features).toContainText(/cover letter/i);
+  });
+
+  test('never claims the app does not write CV content (negative: Tailor ships)', async ({ page }) => {
+    await expect(page.locator('body')).not.toContainText(/does not write CV content/i);
+  });
+
+  test('the fabrication answer names what the app checks a draft for', async ({ page }) => {
+    const answer = page.locator('details', { hasText: 'Does it make things up?' });
+    await expect(answer).toContainText(/flag/i);
+    await expect(answer).toContainText(/employer/i);
+  });
+
+  test('job search leads with what needs no key (negative: keys are not the pitch)', async ({ page }) => {
+    const card = page.locator('.feat', { hasText: 'UK job search' });
+    await expect(card).toContainText(/no account/i);
+    await expect(card).not.toContainText(/Search Adzuna and Reed inside the app with your own free keys/);
+  });
+
   test('the page no longer says macOS is not offered', async ({ page }) => {
     await expect(page.locator('body')).not.toContainText(/macOS and Linux are not offered/);
   });
