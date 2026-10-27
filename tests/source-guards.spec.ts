@@ -247,9 +247,14 @@ const NAMES_ALLOWED_IN = new Set([path.join('privacy', 'index.html'), path.join(
 
 const sha256 = (word: string): string => crypto.createHash('sha256').update(word).digest('hex');
 
-/** Every banned word in `text`. A word is a run of letters and digits. */
+/**
+ * Every banned word in `text`. A word is a run of letters and digits; a string
+ * escape (`\n`, `\t`, `\r`) counts as the space it stands for, so a name
+ * written after one in a script is still found.
+ */
 function personalNames(text: string, banned: ReadonlySet<string> = BANNED_NAME_HASHES): string[] {
-  return (text.toLowerCase().match(/[a-z0-9]+/g) ?? []).filter((word) => banned.has(sha256(word)));
+  const unescaped = text.replace(/\\[ntr]/g, ' ');
+  return (unescaped.toLowerCase().match(/[a-z0-9]+/g) ?? []).filter((word) => banned.has(sha256(word)));
 }
 
 function siteFiles(dir: string): string[] {
@@ -275,6 +280,7 @@ test('no published file names a person, outside the privacy policy and terms', (
 test('the name guard catches a banned word, and only whole words', () => {
   const standIn = new Set([sha256('zebedee')]);
   expect(personalNames('Made by ZEBEDEE.', standIn)).toEqual(['zebedee']);
+  expect(personalNames(String.raw`'Thanks,\nZebedee'`, standIn)).toEqual(['zebedee']);
   expect(personalNames('zebedees zebedee1 github.com/zebedee2/repo', standIn)).toEqual([]);
   expect(personalNames('Stevenage, Bradyville')).toEqual([]);
 });
