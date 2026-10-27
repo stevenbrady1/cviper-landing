@@ -53,6 +53,20 @@ test.describe('home page', () => {
     await expectNoSidewaysScroll(page);
   });
 
+  // The hero card's title ran straight into its score, and the score broke
+  // over two lines ("MATCH / 87%"), at 8 of 9 widths measured, desktop
+  // included. Runs at all three project widths.
+  test('the hero card keeps its score on one line, clear of the title', async ({ page }) => {
+    const bar = page.locator('.demo .bar');
+    const [title, score] = [bar.locator('span').first(), bar.locator('.score')];
+    await expect(score).toHaveText('Match 87%');
+    const t = (await title.boundingBox())!;
+    const s = (await score.boundingBox())!;
+    const lineHeight = await score.evaluate((el) => parseFloat(getComputedStyle(el).lineHeight));
+    expect(s.height, 'the score wraps onto a second line').toBeLessThan(lineHeight * 1.5);
+    expect(s.x - (t.x + t.width), 'the score touches the title').toBeGreaterThanOrEqual(8);
+  });
+
   test('the primary button downloads the installer itself, from the latest published release', async ({ page }) => {
     const cta = page.getByRole('link', { name: /download cviper light for windows/i });
     await expect(cta).toBeVisible();
