@@ -9,6 +9,7 @@
 // guard read a planted example).
 
 import { test, expect } from '@playwright/test';
+import * as crypto from 'node:crypto';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
@@ -215,11 +216,71 @@ test('og:image is an absolute cviper.ai URL whose file is in this repository', (
   expect(metaContent(html, 'name', 'twitter:card')).toBe('summary_large_image');
 });
 
-test('the home page and the Windows-warning page name their author', () => {
-  for (const rel of ['index.html', path.join('windows-warning', 'index.html')]) {
+// L-298: the site names no person. The author is the product, "CViper" (the
+// owner's choice, 27 Oct 2026, replacing the personal name L-245 set).
+test('the home, Windows-warning and terms pages give CViper as their author', () => {
+  for (const rel of ['index.html', path.join('windows-warning', 'index.html'), path.join('terms', 'index.html')]) {
     const file = path.join(root, rel);
     expect(fs.existsSync(file), `${rel} exists`).toBe(true);
     const html = stripHtmlComments(fs.readFileSync(file, 'utf8'));
-    expect(metaContent(html, 'name', 'author'), `${rel}: author meta`).toBe('Steven Brady');
+    expect(metaContent(html, 'name', 'author'), `${rel}: author meta`).toBe('CViper');
   }
+});
+
+// ── No personal names (L-298) ────────────────────────────────────────────────
+// Banned words are listed by SHA-256 so this file is not itself the one that
+// names the person. A speed bump, not a secret: the GitHub account name is in
+// every repository link, and a link cannot change without moving the repo.
+//
+// Allowed: the privacy policy and the terms. A privacy notice must name its
+// controller (UK GDPR Art. 13), and the terms say who "we" are. Changing them
+// is the owner's legal decision, not a find-and-replace — and the privacy page
+// must match the app's own copy word for word (privacy-drift.yml).
+
+const BANNED_NAME_HASHES: ReadonlySet<string> = new Set([
+  'c7c084318b6f1bece6f74ffce1ea53596070345272dee8040037497c7d4cbffe',
+  'f148389d080cfe85952998a8a367e2f7eaf35f2d72d2599a5b0412fe4094d65c',
+  '3b9b05c720497601bfacaf66e58e8e37e3545ea9ab671665ad2e72e483c4872f',
+  'e745dadf1d8de32bce89880a3a05968436b16de3c99040c7958fddff2b5d75d2',
+]);
+const NAMES_ALLOWED_IN = new Set([path.join('privacy', 'index.html'), path.join('terms', 'index.html')]);
+
+const sha256 = (word: string): string => crypto.createHash('sha256').update(word).digest('hex');
+
+/**
+ * Every banned word in `text`. A word is a run of letters and digits; a string
+ * escape (`\n`, `\t`, `\r`) counts as the space it stands for, so a name
+ * written after one in a script is still found.
+ */
+function personalNames(text: string, banned: ReadonlySet<string> = BANNED_NAME_HASHES): string[] {
+  const unescaped = text.replace(/\\[ntr]/g, ' ');
+  return (unescaped.toLowerCase().match(/[a-z0-9]+/g) ?? []).filter((word) => banned.has(sha256(word)));
+}
+
+function siteFiles(dir: string): string[] {
+  const out: string[] = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (['node_modules', '.git', 'test-results', 'playwright-report', '__screenshots__'].includes(entry.name)) continue;
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...siteFiles(full));
+    else if (/\.(html|css|js|json|xml|txt|webmanifest)$/.test(entry.name)) out.push(full);
+  }
+  return out;
+}
+
+test('no published file names a person, outside the privacy policy and terms', () => {
+  const files = siteFiles(root);
+  expect(files.length).toBeGreaterThan(5);
+  const offences = files
+    .filter((file) => !NAMES_ALLOWED_IN.has(path.relative(root, file)))
+    .flatMap((file) => personalNames(fs.readFileSync(file, 'utf8')).map((w) => `${path.relative(root, file)}: ${w}`));
+  expect(offences).toEqual([]);
+});
+
+test('the name guard catches a banned word, and only whole words', () => {
+  const standIn = new Set([sha256('zebedee')]);
+  expect(personalNames('Made by ZEBEDEE.', standIn)).toEqual(['zebedee']);
+  expect(personalNames(String.raw`'Thanks,\nZebedee'`, standIn)).toEqual(['zebedee']);
+  expect(personalNames('zebedees zebedee1 github.com/zebedee2/repo', standIn)).toEqual([]);
+  expect(personalNames('Stevenage, Bradyville')).toEqual([]);
 });
