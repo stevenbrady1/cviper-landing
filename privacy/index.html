@@ -38,20 +38,20 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   1675f61b4f68c9e4f6710ccfd7710b4309a29932   (on main)
-                     "docs(privacy): regenerate the policy for the tenth
-                     board's host, dated 22 October 2026" (L-262). Adds
-                     www.jobs.service.gov.uk (GOV.UK Find a job) beside the
-                     other keyless board links and moves "Last updated" to
-                     22 October 2026. Earlier: L-258 (PR #319, the policy
-                     stopped naming the app version), L-257, #299 (L-239)
-                     and #297 (L-231) - controller, private contact
+      last changed   2939602c492610793fb4982fd74c9b11722f7cf8   (on main)
+                     "feat(search): saved searches, run again in one click"
+                     (L-309, PR #438). Adds "your saved searches" to the
+                     browser-storage line and moves "Last updated" to
+                     28 October 2026. Earlier: L-262 (1675f61, the GOV.UK
+                     Find a job host, 22 October 2026), L-258 (PR #319, the
+                     policy stopped naming the app version), L-257, #299
+                     (L-239) and #297 (L-231) - controller, private contact
                      (cviperuk@gmail.com), lawful basis, rights and ICO,
                      transfers, retention, age 16+, a date, and the Adzuna
                      attribution link on the adzuna.co.uk line.
       transcribed    from cviper-light at
-                     1675f61b4f68c9e4f6710ccfd7710b4309a29932 (2026-10-22)
-      sha256         66ed5bc0be597a8e56eb0a8628524c01cdf8574ea34b050150b727684b29fa71
+                     6422ee8e5db69b69fc340888ae086148e2a7db6e (2026-10-29)
+      sha256         ae2663ac387d968ae99f1f6977da98fc4573a1a8f6f1497f1c633d9050295e2f
       app version    none - the policy no longer names one (L-258)
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -171,7 +171,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <div class="eyebrow">CViper Light</div>
       <h1>Privacy policy</h1>
       <p class="lede">There is no account, no server of ours, and no analytics. Your CV, your saved jobs and your applications sit on your own device. We receive nothing.</p>
-      <p class="meta">This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes. Last updated: 22 October 2026. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
+      <p class="meta">This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes. Last updated: 28 October 2026. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
 
       <div class="callout">
         <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, or switched it on — and only the services listed on this page. Two things happen on their own: when the app starts it reads this app’s GitHub releases to see whether there is a newer version, unless you switch that off in Settings; and it asks this same computer whether Ollama is running, a request that never leaves it.</p>
@@ -187,7 +187,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><strong>Which job boards you enabled and how you ordered them</strong> — <span class="host">job-boards.json</span> in the same data folder.</li>
         <li><strong>Which AI providers you agreed to send your CV to</strong> — <span class="host">ai-provider-consent.json</span> in the same data folder.</li>
         <li><strong>Which job you were last tailoring for, so it can be offered back — its id only, no text</strong> — <span class="host">workflow.json</span> in the same data folder.</li>
-        <li><strong>Small conveniences: your last search, which free job feeds you ticked, which job boards Search opens, which AI model each service uses, today’s request count, that you have seen the introduction, and that you were asked about keys left by an earlier install</strong> — this app’s own browser storage, which no other program reads.</li>
+        <li><strong>Small conveniences: your last search, your saved searches, which free job feeds you ticked, which job boards Search opens, which AI model each service uses, today’s request count, that you have seen the introduction, and that you were asked about keys left by an earlier install</strong> — this app’s own browser storage, which no other program reads.</li>
       </ul>
 
       <h2>Every address the app can contact</h2>
