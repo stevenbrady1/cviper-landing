@@ -38,11 +38,13 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   2939602c492610793fb4982fd74c9b11722f7cf8   (on main)
-                     "feat(search): saved searches, run again in one click"
-                     (L-309, PR #438). Adds "your saved searches" to the
-                     browser-storage line and moves "Last updated" to
-                     28 October 2026. Earlier: L-262 (1675f61, the GOV.UK
+      last changed   3c292988b0ee7bc6553e1286b72bee5c0dae747c   (on main)
+                     "fix: retire the Guardian Jobs board link, which closed
+                     on 2 Sep 2026" (L-337, PR #485). With L-336 (0cfb230,
+                     PR #483, the Guardian Jobs feed) it removes the
+                     jobs.theguardian.com line and moves "Last updated" to
+                     30 October 2026. Earlier: L-309 (2939602, PR #438, saved
+                     searches, 28 October 2026), L-262 (1675f61, the GOV.UK
                      Find a job host, 22 October 2026), L-258 (PR #319, the
                      policy stopped naming the app version), L-257, #299
                      (L-239) and #297 (L-231) - controller, private contact
@@ -50,8 +52,8 @@
                      transfers, retention, age 16+, a date, and the Adzuna
                      attribution link on the adzuna.co.uk line.
       transcribed    from cviper-light at
-                     6422ee8e5db69b69fc340888ae086148e2a7db6e (2026-10-29)
-      sha256         ae2663ac387d968ae99f1f6977da98fc4573a1a8f6f1497f1c633d9050295e2f
+                     01595ee679d138528780063949cab8584366df70 (2026-10-30)
+      sha256         ed03f2c2d81ed5e688f2d69036e4021b2080aa25d69c88c8a48c1cc5468c4c1a
       app version    none - the policy no longer names one (L-258)
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -171,7 +173,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <div class="eyebrow">CViper Light</div>
       <h1>Privacy policy</h1>
       <p class="lede">There is no account, no server of ours, and no analytics. Your CV, your saved jobs and your applications sit on your own device. We receive nothing.</p>
-      <p class="meta">This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes. Last updated: 28 October 2026. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
+      <p class="meta">This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes. Last updated: 30 October 2026. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
 
       <div class="callout">
         <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, or switched it on — and only the services listed on this page. Two things happen on their own: when the app starts it reads this app’s GitHub releases to see whether there is a newer version, unless you switch that off in Settings; and it asks this same computer whether Ollama is running, a request that never leaves it.</p>
@@ -211,7 +213,6 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <p>A plain request with nothing about you in it beyond the request itself.</p>
       <ul>
         <li><span class="host">www.arbeitnow.com</span> — The list of recent jobs this free job board publishes, read when you press Browse. It takes no key and no account, and nothing about you is sent — the site sees your IP address, exactly as it would if you opened its job board in your browser. It cannot search: CViper reads the recent list and narrows it down on your computer.</li>
-        <li><span class="host">jobs.theguardian.com</span> — Guardian Jobs’ public list of its twenty most recent UK jobs, read when you press Browse. It takes no key and no account, and nothing about you is sent — the site sees your IP address, exactly as it would if you opened the page yourself. Its own search page is also opened in your browser by the keyless buttons on the search screen, and the app does not load that one.</li>
         <li><span class="host">github.com</span> — The update check reads a small signed file from this app’s public GitHub releases. It happens when you press “Check for updates”, and once when the app starts unless you switch that off in Settings. It carries no data about you beyond the request itself. The source code is also opened in your browser from Settings → About.</li>
         <li><strong>any job-advert page you ask it to open — only when you press Fetch, or Analyse this job on a search result</strong> — You paste a link and press Fetch, and the app reads that one page so it can fill in the form. Pressing Analyse this job on a search result that carries only a preview of the advert reads that result’s own page, once, so the whole advert is scored. The address is whichever one you pasted or the result links to, so it cannot be listed here in advance. It carries no cookies, no sign-in and no key, it cannot reach your saved keys, it follows no links, and addresses on your own computer or home network are refused. The site sees your IP address, exactly as it would if you had clicked the link yourself.</li>
       </ul>
