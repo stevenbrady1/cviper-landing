@@ -38,11 +38,14 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   631718cbe70c192a151b4496c25f88b5b4da8b93   (on main)
-                     "feat(tailor): put your name and contact details on a
-                     saved CV" (L-346, PR #509). Adds the line for the name,
-                     email and phone saved for the top of a CV, and moves
-                     "Last updated" to 6 November 2026. Earlier: L-337
+      last changed   e6cd176ac36ce7a276879b50974ecae7cc201b64   (on main)
+                     "feat(search): choose the country you search in; a new
+                     install is asked first" (L-417, PR #663). Adds "the
+                     country you search in" to the browser-storage line and
+                     "and the country you chose" to the api.adzuna.com line,
+                     and moves "Last updated" to 16 November 2026. Earlier:
+                     L-346 (631718c, PR #509, the name and contact details
+                     saved for the top of a CV, 6 November 2026), L-337
                      (3c29298, PR #485) and L-336 (0cfb230, PR #483), the
                      Guardian Jobs retirement, 30 October 2026; L-309
                      (2939602, PR #438, saved searches, 28 October 2026),
@@ -54,8 +57,8 @@
                      transfers, retention, age 16+, a date, and the Adzuna
                      attribution link on the adzuna.co.uk line.
       transcribed    from cviper-light at
-                     431b22d1a9de0a7afabb8f4654dca9f602b7eb25 (2026-11-09)
-      sha256         30d3aa41ef54934d06bd8cdc98fe180efc7f942f93fde0a1483c78245554942d
+                     889b988f7cc1a6f0f9061e812cdb3c40a650f028 (2026-11-16)
+      sha256         1a7eeff909e7f85d210700f94f1bc4972e6e954d38421e35ed6aca7556b7b509
       app version    none - the policy no longer names one (L-258)
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -175,7 +178,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <div class="eyebrow">CViper Light</div>
       <h1>Privacy policy</h1>
       <p class="lede">There is no account, no server of ours, and no analytics. Your CV, your saved jobs and your applications sit on your own device. We receive nothing.</p>
-      <p class="meta">This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes. Last updated: 6 November 2026. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
+      <p class="meta">This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes. Last updated: 16 November 2026. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
 
       <div class="callout">
         <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, or switched it on — and only the services listed on this page. Two things happen on their own: when the app starts it reads this app’s GitHub releases to see whether there is a newer version, unless you switch that off in Settings; and it asks this same computer whether Ollama is running, a request that never leaves it.</p>
@@ -192,7 +195,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><strong>Which job boards you enabled and how you ordered them</strong> — <span class="host">job-boards.json</span> in the same data folder.</li>
         <li><strong>Which AI providers you agreed to send your CV to</strong> — <span class="host">ai-provider-consent.json</span> in the same data folder.</li>
         <li><strong>Which job you were last tailoring for, so it can be offered back — its id only, no text</strong> — <span class="host">workflow.json</span> in the same data folder.</li>
-        <li><strong>Small conveniences: your last search, your saved searches, which free job feeds you ticked, which job boards Search opens, which AI model each service uses, today’s request count, that you have seen the introduction, and that you were asked about keys left by an earlier install</strong> — this app’s own browser storage, which no other program reads.</li>
+        <li><strong>Small conveniences: your last search, your saved searches, the country you search in, which free job feeds you ticked, which job boards Search opens, which AI model each service uses, today’s request count, that you have seen the introduction, and that you were asked about keys left by an earlier install</strong> — this app’s own browser storage, which no other program reads.</li>
       </ul>
 
       <h2>Every address the app can contact</h2>
@@ -207,7 +210,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><span class="host">api.mistral.ai</span> — A CV analysis, or a pasted job advert, that you start, sent with your own Mistral key under your own Mistral account.</li>
         <li><span class="host">api.x.ai</span> — A CV analysis, or a pasted job advert, that you start, sent with your own xAI key under your own xAI account.</li>
         <li><span class="host">openrouter.ai</span> — A CV analysis, or a pasted job advert, that you start, sent with your own OpenRouter key under your own OpenRouter account. OpenRouter passes the request on to the company that runs the model you use. Its key page is also opened in your browser from Settings; the app never loads that page.</li>
-        <li><span class="host">api.adzuna.com</span> — A job search you start, sent with the free Adzuna key you registered yourself. Adzuna’s API requires both parts of that key — the app ID and the app key — as parameters in the web address, so they appear in Adzuna’s own request logs. The request also carries your search words and location, which is what a search is, and Adzuna sees your IP address, exactly as it would if you searched on its own site yourself.</li>
+        <li><span class="host">api.adzuna.com</span> — A job search you start, sent with the free Adzuna key you registered yourself. Adzuna’s API requires both parts of that key — the app ID and the app key — as parameters in the web address, so they appear in Adzuna’s own request logs. The request also carries your search words and location, and the country you chose, which is what a search is, and Adzuna sees your IP address, exactly as it would if you searched on its own site yourself.</li>
         <li><span class="host">www.reed.co.uk</span> — A job search you start, sent with the free Reed key you registered yourself, carrying your search words and location — Reed sees those and your IP address, exactly as it would if you searched on reed.co.uk yourself. Reed’s developer page is also opened in your browser from Settings, and so is a keyless search link for Reed from <span class="host">job-boards.json</span>; the app never loads either page.</li>
         <li><strong>an AI service you add yourself in Settings, at the address you type there</strong> — Contacted only if you add one. A CV analysis, a tailoring, a pasted job advert, a follow-up or an interview pack that you start, after you agree, is sent to the address you typed, with the key you saved for it, if any. The address must start with https:// and be on the internet, unless you tick that the service runs on your own computer or network, and then it must be there instead. Its key is kept with that address and is never sent anywhere else. Settings also asks the service which models it offers. The app follows no links the service sends back.</li>
       </ul>
