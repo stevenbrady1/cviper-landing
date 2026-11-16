@@ -53,7 +53,11 @@ permissions:
 jobs:
   check:
     name: Pages render as committed
-    runs-on: ubuntu-latest
+    # Pinned, not ubuntu-latest: the baselines are tied to this image's system
+    # fonts, and ubuntu-latest moved to 26.04, where Playwright 1.56.1 cannot
+    # install chromium. Moving it means regenerating EVERY baseline with the
+    # update_snapshots dispatch below.
+    runs-on: ubuntu-24.04
     permissions:
       # Solely for pushing runner-generated baselines back to the branch.
       contents: write
