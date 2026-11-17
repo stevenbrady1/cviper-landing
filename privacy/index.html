@@ -38,14 +38,16 @@
   SOURCE STAMP - which version of the app this page describes
   ---------------------------------------------------------------------------
       source file    docs/app-store/privacy-policy.md
-      last changed   e6cd176ac36ce7a276879b50974ecae7cc201b64   (on main)
-                     "feat(search): choose the country you search in; a new
-                     install is asked first" (L-417, PR #663). Adds "the
-                     country you search in" to the browser-storage line and
-                     "and the country you chose" to the api.adzuna.com line,
-                     and moves "Last updated" to 16 November 2026. Earlier:
-                     L-346 (631718c, PR #509, the name and contact details
-                     saved for the top of a CV, 6 November 2026), L-337
+      last changed   0d35f7f5486a2f6ad581b8dbfa354670020e5aa4   (on main)
+                     "feat(boards): the built-in job boards follow the
+                     country" (L-422, PR #673). Adds 18 Indeed hosts after
+                     uk.indeed.com and 11 Adzuna hosts after
+                     www.adzuna.co.uk, the keyless search links for the other
+                     countries, and moves "Last updated" to 17 November 2026.
+                     Earlier: L-417 (e6cd176, PR #663, the country you search
+                     in, 16 November 2026), L-346 (631718c, PR #509, the
+                     name and contact details saved for the top of a CV,
+                     6 November 2026), L-337
                      (3c29298, PR #485) and L-336 (0cfb230, PR #483), the
                      Guardian Jobs retirement, 30 October 2026; L-309
                      (2939602, PR #438, saved searches, 28 October 2026),
@@ -57,8 +59,8 @@
                      transfers, retention, age 16+, a date, and the Adzuna
                      attribution link on the adzuna.co.uk line.
       transcribed    from cviper-light at
-                     889b988f7cc1a6f0f9061e812cdb3c40a650f028 (2026-11-16)
-      sha256         1a7eeff909e7f85d210700f94f1bc4972e6e954d38421e35ed6aca7556b7b509
+                     48bcebb86f0d6e16ee5b27d657e02c8f7cbdc42d (2026-11-17)
+      sha256         ddd2ca2c7bb3c2b56397057291b23fffb8de01af5ed79cd4d1a0e73229ac6443
       app version    none - the policy no longer names one (L-258)
 
   The stamp says which version of the app this page describes. It is NOT what
@@ -178,7 +180,7 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
       <div class="eyebrow">CViper Light</div>
       <h1>Privacy policy</h1>
       <p class="lede">There is no account, no server of ours, and no analytics. Your CV, your saved jobs and your applications sit on your own device. We receive nothing.</p>
-      <p class="meta">This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes. Last updated: 16 November 2026. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
+      <p class="meta">This page is generated from the app's own list of the addresses it may contact — the same list the app shows under Settings → Privacy, and the one a test holds the code to. It changes when that list changes. Last updated: 17 November 2026. Transcribed here word for word from that generated document, which is published in the app's public repository.</p>
 
       <div class="callout">
         <p><strong>The short version.</strong> CViper Light has no account to create, no server of ours behind it and no analytics in it. Your CV text, your saved jobs and your applications are stored on your own device, in a database that belongs to the app. The app contacts another service only when you press a button that says it will, or switched it on — and only the services listed on this page. Two things happen on their own: when the app starts it reads this app’s GitHub releases to see whether there is a newer version, unless you switch that off in Settings; and it asks this same computer whether Ollama is running, a request that never leaves it.</p>
@@ -235,9 +237,38 @@ a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius
         <li><span class="host">ollama.com</span> — Ollama’s download page. When Ollama is running on your computer but has no model that can chat, the CV check, the tailor screen and the welcome screen offer this link, which hands the address to your browser when you tap it; the app never loads the page, and nothing is added to the link.</li>
         <li><span class="host">www.linkedin.com</span> — A keyless search link for LinkedIn, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">uk.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">at.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">au.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">be.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">br.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">ca.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">ch.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">de.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">es.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">fr.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">in.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">it.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">mx.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">nl.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">nz.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">pl.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">sg.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">za.indeed.com</span> — A keyless search link for Indeed, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.totaljobs.com</span> — A keyless search link for Totaljobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.cv-library.co.uk</span> — A keyless search link for CV-Library, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.adzuna.co.uk</span> — A keyless search link for Adzuna’s public search, from job-boards.json, and the word “Adzuna” on each Adzuna advert, which Adzuna’s API terms ask to link to their site. Pressing either hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.at</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.com.au</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.be</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.ch</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.de</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.es</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.fr</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.in</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.it</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.nl</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
+        <li><span class="host">www.adzuna.pl</span> — A keyless search link for Adzuna’s public search, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.google.com</span> — A keyless search link for Google Jobs, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page.</li>
         <li><span class="host">www.jobserve.com</span> — A keyless search link for Jobserve, from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page, and it never scrapes Jobserve.</li>
         <li><span class="host">www.jobs.service.gov.uk</span> — A keyless search link for GOV.UK’s Find a job (the Work Hub service run by the Department for Work and Pensions), from job-boards.json. Pressing it hands the address to your own browser; the app never loads the page, and it never scrapes it.</li>
